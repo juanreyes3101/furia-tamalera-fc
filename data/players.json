@@ -68,7 +68,7 @@
     "edad": null,
     "nickname": "Simón",
     "num": 2,
-    "pos": "DEF",
+    "pos": "MED",
     "positions": [
       "DEF",
       "MED",
@@ -85,7 +85,7 @@
     "dri": 79,
     "def": 90,
     "phy": 82,
-    "ovr": 85,
+    "ovr": 84,
     "note": [
       "Morata"
     ],
@@ -366,13 +366,13 @@
       "Mediocampista Central",
       "Delantero (9)"
     ],
-    "pac": 75,
+    "pac": 74,
     "sho": 90,
     "pas": 85,
     "dri": 85,
     "def": 60,
     "phy": 85,
-    "ovr": 84,
+    "ovr": 83,
     "note": [
       "Milo"
     ],
