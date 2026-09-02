@@ -14,6 +14,17 @@ const MEDIA = [
 const MEDIA_LOOP = [...MEDIA, ...MEDIA];
 const SPEED = 34; // px/s
 
+// Un solo trazo, reutilizado para las dos flechas (la izquierda es la misma
+// rotada 180°) — así quedan garantizado idénticas en grosor y tamaño, sin
+// depender de que la fuente tenga los glyphs ← / → parejos.
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" className={className} aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function Matchday() {
   const railRef = useRef<HTMLDivElement | null>(null);
   const pos = useRef(0);
@@ -135,19 +146,19 @@ export default function Matchday() {
             type="button"
             onClick={() => scrollRail(-1)}
             aria-label="Anterior"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[rgba(233,233,237,.2)] text-[16px] leading-none text-ink-2 transition-colors hover:border-green hover:text-green-light"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[rgba(233,233,237,.2)] text-ink-2 transition-colors hover:border-green hover:text-green-light"
             style={{ background: "rgba(35,37,50,.8)" }}
           >
-            ←
+            <ArrowIcon className="rotate-180" />
           </button>
           <button
             type="button"
             onClick={() => scrollRail(1)}
             aria-label="Siguiente"
-            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[rgba(233,233,237,.2)] text-[16px] leading-none text-ink-2 transition-colors hover:border-green hover:text-green-light"
+            className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-[rgba(233,233,237,.2)] text-ink-2 transition-colors hover:border-green hover:text-green-light"
             style={{ background: "rgba(35,37,50,.8)" }}
           >
-            →
+            <ArrowIcon />
           </button>
         </div>
       </div>
