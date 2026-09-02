@@ -10,7 +10,10 @@ furia-tamalera-fc/
 ├── data/
 │   ├── players.json                  ← fuente de verdad de la web: 16 fichas (generado, no editar a mano)
 │   ├── tally_export.json             ← snapshot de las submissions de Tally (gitignored)
-│   ├── roster_publico_TEMPLATE.csv   ← nombre público, apodo y dorsal de cada jugador (editable)
+│   ├── roster_publico_TEMPLATE.csv   ← nombre, apellido, apodo, dorsal, edad de cada jugador (editable, gitignored)
+│   ├── proximo_partido.csv           ← rival/fecha/tipo/lugar del próximo partido (editable, SÍ se sube)
+│   ├── tabla_posiciones.csv          ← tabla de posiciones del grupo (editable, SÍ se sube)
+│   ├── calendario.csv                ← próximos partidos/fechas (editable, SÍ se sube)
 │   ├── procesar_stats.py             ← script de Pandas original (referencia; la web usa scripts/sync-tally.ts)
 │   ├── respuestas_form.ejemplo.csv   ← ejemplo del CSV que exporta un form de respuestas
 │   ├── plantilla.ejemplo.json        ← salida de ejemplo del script de Pandas
@@ -46,6 +49,45 @@ respondido el form aparecen igual en la plantilla, marcados como pendientes.
    dato del roster, y qué respuestas de "apodo sugerido" (`note_raw`) quedaron pendientes de tu revisión
    antes de publicarse como `note` en la carta del jugador.
 4. `npm run dev` para revisar, luego commit + deploy.
+
+## Actualizar el próximo partido, la tabla o el calendario (sin pedírmelo)
+
+Estos 3 datos ya NO están escritos en el código — viven en 3 CSV chiquitos en `data/`, editables por ti
+directamente. Cualquier cambio se ve en el sitio en ~1 minuto después de subirlo (Vercel redespliega solo
+con cada push a `main`).
+
+**`data/proximo_partido.csv`** — una sola fila (alimenta el countdown y la tarjeta "Próximo partido"):
+```
+rival,fecha_hora,tipo,lugar
+Toros FC,2026-09-06T18:00:00-05:00,Amistoso,Cancha Sintética El Salitre
+```
+- `fecha_hora`: formato `AAAA-MM-DDTHH:MM:SS-05:00` (el `-05:00` es la hora de Bogotá, no lo cambies).
+  Ejemplo: domingo 6 de septiembre, 6:00pm → `2026-09-06T18:00:00-05:00`.
+- Deja `rival` vacío si todavía no se sabe (se ve como "?" en la web).
+
+**`data/tabla_posiciones.csv`** — una fila por equipo:
+```
+equipo,pj,g,e,p,dg,pts
+Furia Tamalera FC,3,2,1,0,4,7
+Toros FC,3,1,1,1,-1,4
+```
+No hace falta ordenarla ni poner la posición — la web ordena sola por puntos (y diferencia de gol si hay
+empate) y resalta en dorado la fila que contenga "Furia".
+
+**`data/calendario.csv`** — una fila por partido:
+```
+fecha,titulo,meta,tag
+2026-09-13T16:00:00-05:00,Fecha 2 · Torneo Fansport,vs Toros FC,Oficial
+```
+- `fecha` vacía = se ve como "—" (por confirmar).
+- `tag`: escribe "Amistoso" (verde), "Oficial" (dorado), o cualquier otra palabra (gris).
+
+**Cómo editarlos** (elige el que te quede más cómodo):
+- **Desde el celular o sin instalar nada**: entra al archivo en GitHub
+  (`github.com/juanreyes3101/furia-tamalera-fc/blob/main/data/proximo_partido.csv`), toca el ícono de
+  lápiz (Edit), cambia el texto, y abajo dale "Commit changes" directo a `main`. Listo, no necesitas nada
+  más — en un rato ya está en `furia-tamalera-fc.vercel.app`.
+- **Desde tu computador**: edítalo con Excel/Sheets/Notepad y luego `git add`, `git commit`, `git push`.
 
 ## Menores de edad en el equipo
 

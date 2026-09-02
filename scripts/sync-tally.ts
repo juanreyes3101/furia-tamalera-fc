@@ -206,7 +206,9 @@ function main() {
   // 3) construir un Player completo por cada fila del roster (las 16)
   const players: Player[] = roster.map((r) => {
     const sub = latestByPlayer.get(r.jugador.trim());
-    const id = slugify(r.nombre_publico || r.jugador);
+    // Nombre + apellido para el id: dos jugadores pueden compartir nombre_publico
+    // (ej. dos "Juan Camilo") y el apellido es lo que los distingue de forma única.
+    const id = slugify(`${r.nombre_publico} ${r.apellido ?? ""}`.trim() || r.jugador);
     const num = parseInt(r.dorsal, 10);
     const edadParsed = parseInt(r.edad, 10);
     const edad = Number.isFinite(edadParsed) ? edadParsed : null;
@@ -278,6 +280,16 @@ function main() {
       respondedAt: sub.submittedAt,
     };
   });
+
+  const idCounts = new Map<string, number>();
+  for (const p of players) idCounts.set(p.id, (idCounts.get(p.id) ?? 0) + 1);
+  const idsDuplicados = [...idCounts.entries()].filter(([, n]) => n > 1).map(([id]) => id);
+  if (idsDuplicados.length) {
+    throw new Error(
+      `nombre_publico + apellido genera el mismo id para más de un jugador: ${idsDuplicados.join(", ")}. ` +
+        `Ajusta nombre_publico o apellido en roster_publico_TEMPLATE.csv para que cada uno sea único.`
+    );
+  }
 
   writeFileSync(OUTPUT, JSON.stringify(players, null, 2) + "\n", "utf-8");
 

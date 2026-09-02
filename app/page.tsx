@@ -11,8 +11,13 @@ import Matchday from "@/components/Matchday";
 import Novedades from "@/components/Novedades";
 import Patrocinio from "@/components/Patrocinio";
 import Footer from "@/components/Footer";
+import { getCalendario, getProximoPartido, getTablaPosiciones } from "@/lib/torneo";
 
 export default function Home() {
+  const proximoPartido = getProximoPartido();
+  const standings = getTablaPosiciones();
+  const fixtures = getCalendario();
+
   return (
     <>
       <Header />
@@ -22,9 +27,9 @@ export default function Home() {
         <Manifiesto />
         <RosterSection />
         <StatsBand />
-        <Countdown />
+        <Countdown targetDate={proximoPartido.fechaHora ?? undefined} />
         <TacticsBoard />
-        <StandingsTable />
+        <StandingsTable standings={standings} fixtures={fixtures} proximoPartido={proximoPartido} />
         <Matchday />
         <Novedades />
         <Patrocinio />

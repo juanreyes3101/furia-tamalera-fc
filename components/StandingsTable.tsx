@@ -1,22 +1,18 @@
+import { formatDayMonth, formatFechaLarga, tagColor, type Fixture, type ProximoPartido, type StandingRow } from "@/lib/torneo";
+
 const GOLD = "#e3b23c";
-const GREEN = "#2fa26a";
 
-const STANDINGS = [
-  { pos: 1, team: "Furia Tamalera FC", ink: GOLD, weight: 700, bg: "rgba(227,178,60,.07)" },
-  { pos: 2, team: "Rival por sortear", ink: "#75798c", weight: 500, bg: "transparent" },
-  { pos: 3, team: "Rival por sortear", ink: "#75798c", weight: 500, bg: "transparent" },
-  { pos: 4, team: "Rival por sortear", ink: "#75798c", weight: 500, bg: "transparent" },
-  { pos: 5, team: "Rival por sortear", ink: "#75798c", weight: 500, bg: "transparent" },
-  { pos: 6, team: "Rival por sortear", ink: "#75798c", weight: 500, bg: "transparent" },
-].map((r) => ({ ...r, pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0 }));
+export default function StandingsTable({
+  standings,
+  fixtures,
+  proximoPartido,
+}: {
+  standings: StandingRow[];
+  fixtures: Fixture[];
+  proximoPartido: ProximoPartido;
+}) {
+  const rivalLabel = proximoPartido.rival || null;
 
-const FIXTURES = [
-  { day: "—", month: "Sep", title: "Amistoso de preparación", meta: "Rival y sede por confirmar", tag: "Amistoso", ink: GREEN },
-  { day: "—", month: "Sep", title: "Fecha 1 · Torneo Fansport", meta: "A la espera del sorteo de grupos", tag: "Oficial", ink: GOLD },
-  { day: "—", month: "Sep", title: "Fecha 2 · Torneo Fansport", meta: "Calendario por publicar", tag: "Oficial", ink: "#75798c" },
-];
-
-export default function StandingsTable() {
   return (
     <section id="tabla" className="mx-auto max-w-[1240px] px-[22.4px] pb-[78px] pt-[22.4px]">
       <div data-reveal className="grid items-start gap-[22.4px] [grid-template-columns:repeat(auto-fit,minmax(300px,1fr))]">
@@ -42,22 +38,30 @@ export default function StandingsTable() {
               <div className="text-center">DG</div>
               <div className="text-center">PTS</div>
             </div>
-            {STANDINGS.map((r) => (
-              <div
-                key={r.pos}
-                className="grid min-w-[430px] items-center border-t border-[rgba(233,233,237,.08)] px-[14px] py-[11px]"
-                style={{ gridTemplateColumns: "34px minmax(0,1fr) repeat(6,38px)", background: r.bg }}
-              >
-                <div className="text-[12.5px] font-bold" style={{ color: r.ink }}>{r.pos}</div>
-                <div className="truncate text-[13.5px]" style={{ color: r.ink, fontWeight: r.weight }}>{r.team}</div>
-                <div className="text-center text-[12.5px] text-ink-3">{r.pj}</div>
-                <div className="text-center text-[12.5px] text-ink-3">{r.g}</div>
-                <div className="text-center text-[12.5px] text-ink-3">{r.e}</div>
-                <div className="text-center text-[12.5px] text-ink-3">{r.p}</div>
-                <div className="text-center text-[12.5px] text-ink-3">{r.dg}</div>
-                <div className="text-center text-[13px] font-extrabold" style={{ color: r.ink }}>{r.pts}</div>
-              </div>
-            ))}
+            {standings.map((r) => {
+              const ink = r.isFuria ? GOLD : "#75798c";
+              return (
+                <div
+                  key={r.pos}
+                  className="grid min-w-[430px] items-center border-t border-[rgba(233,233,237,.08)] px-[14px] py-[11px]"
+                  style={{
+                    gridTemplateColumns: "34px minmax(0,1fr) repeat(6,38px)",
+                    background: r.isFuria ? "rgba(227,178,60,.07)" : "transparent",
+                  }}
+                >
+                  <div className="text-[12.5px] font-bold" style={{ color: ink }}>{r.pos}</div>
+                  <div className="truncate text-[13.5px]" style={{ color: ink, fontWeight: r.isFuria ? 700 : 500 }}>
+                    {r.equipo}
+                  </div>
+                  <div className="text-center text-[12.5px] text-ink-3">{r.pj}</div>
+                  <div className="text-center text-[12.5px] text-ink-3">{r.g}</div>
+                  <div className="text-center text-[12.5px] text-ink-3">{r.e}</div>
+                  <div className="text-center text-[12.5px] text-ink-3">{r.p}</div>
+                  <div className="text-center text-[12.5px] text-ink-3">{r.dg}</div>
+                  <div className="text-center text-[13px] font-extrabold" style={{ color: ink }}>{r.pts}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -80,40 +84,50 @@ export default function StandingsTable() {
               </div>
               <div className="text-[22px] font-extrabold tracking-[-.02em] text-ink-4">VS</div>
               <div className="flex-1 text-center">
-                <div className="mx-auto mb-[7px] flex h-11 w-11 items-center justify-center rounded-lg border border-dashed border-[rgba(233,233,237,.22)] text-[16px] text-ink-4">
-                  ?
-                </div>
-                <div className="text-[11.5px] font-bold text-ink-3">RIVAL</div>
+                {rivalLabel ? (
+                  <div className="mx-auto mb-[7px] flex h-11 w-11 items-center justify-center rounded-lg border border-[rgba(233,233,237,.22)] text-[16px] font-bold text-ink">
+                    {rivalLabel.charAt(0).toUpperCase()}
+                  </div>
+                ) : (
+                  <div className="mx-auto mb-[7px] flex h-11 w-11 items-center justify-center rounded-lg border border-dashed border-[rgba(233,233,237,.22)] text-[16px] text-ink-4">
+                    ?
+                  </div>
+                )}
+                <div className="truncate text-[11.5px] font-bold text-ink-3">{rivalLabel ?? "RIVAL"}</div>
               </div>
             </div>
             <div className="rule-fade my-[14px]" />
             <div className="grid gap-[5.6px] text-[12.5px] text-ink-3">
-              <div className="flex justify-between"><span>Tipo</span><span className="font-semibold text-ink">Amistoso</span></div>
-              <div className="flex justify-between"><span>Cuándo</span><span className="font-semibold text-ink">Este fin de semana</span></div>
-              <div className="flex justify-between"><span>Dónde</span><span className="font-semibold text-ink">Bogotá · por confirmar</span></div>
+              <div className="flex justify-between"><span>Tipo</span><span className="font-semibold text-ink">{proximoPartido.tipo}</span></div>
+              <div className="flex justify-between"><span>Cuándo</span><span className="font-semibold text-ink">{formatFechaLarga(proximoPartido.fechaHora)}</span></div>
+              <div className="flex justify-between"><span>Dónde</span><span className="font-semibold text-ink">{proximoPartido.lugar}</span></div>
             </div>
           </div>
 
           <div className="rounded-[14px] p-[16.8px] shadow-[0_0_0_1px_#3f424d]" style={{ background: "rgba(35,37,50,.7)" }}>
             <div className="mb-[11.2px] text-[10.5px] font-bold uppercase tracking-[.16em] text-ink-4">Calendario</div>
-            {FIXTURES.map((f, i) => (
-              <div key={i} className="flex items-center gap-[11.2px] border-t border-[rgba(233,233,237,.08)] py-[9px]">
-                <div className="w-[42px] text-center">
-                  <div className="text-[16px] font-extrabold leading-none" style={{ color: f.ink }}>{f.day}</div>
-                  <div className="text-[9.5px] font-bold uppercase tracking-[.12em] text-ink-4">{f.month}</div>
+            {fixtures.map((f, i) => {
+              const { day, month } = formatDayMonth(f.fecha);
+              const ink = tagColor(f.tag);
+              return (
+                <div key={i} className="flex items-center gap-[11.2px] border-t border-[rgba(233,233,237,.08)] py-[9px]">
+                  <div className="w-[42px] text-center">
+                    <div className="text-[16px] font-extrabold leading-none" style={{ color: ink }}>{day}</div>
+                    <div className="text-[9.5px] font-bold uppercase tracking-[.12em] text-ink-4">{month}</div>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-[12.5px] font-semibold text-ink">{f.titulo}</div>
+                    <div className="text-[11px] text-ink-4">{f.meta}</div>
+                  </div>
+                  <div
+                    className="rounded-full border px-[7px] py-0.5 text-[10px] font-bold uppercase tracking-[.1em]"
+                    style={{ color: ink, borderColor: ink }}
+                  >
+                    {f.tag}
+                  </div>
                 </div>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[12.5px] font-semibold text-ink">{f.title}</div>
-                  <div className="text-[11px] text-ink-4">{f.meta}</div>
-                </div>
-                <div
-                  className="rounded-full border px-[7px] py-0.5 text-[10px] font-bold uppercase tracking-[.1em]"
-                  style={{ color: f.ink, borderColor: f.ink }}
-                >
-                  {f.tag}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

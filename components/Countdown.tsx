@@ -2,14 +2,22 @@
 
 import { useEffect, useState } from "react";
 
-// TODO: reemplazar por la fecha/hora real del debut en cuanto Fansport confirme
-// el sorteo. Mientras tanto apunta al próximo sábado 15:00 como placeholder.
-function nextKickoff(): Date {
+// Respaldo si data/proximo_partido.csv viene vacío o con una fecha inválida:
+// apunta al próximo sábado 15:00 para que el countdown nunca se rompa.
+function fallbackKickoff(): Date {
   const d = new Date();
   d.setHours(15, 0, 0, 0);
   const days = (6 - d.getDay() + 7) % 7 || 7;
   d.setDate(d.getDate() + days);
   return d;
+}
+
+function resolveTarget(targetDate?: string): Date {
+  if (targetDate) {
+    const d = new Date(targetDate);
+    if (!Number.isNaN(d.getTime())) return d;
+  }
+  return fallbackKickoff();
 }
 
 const pad = (n: number) => (n < 10 ? "0" + n : String(n));
@@ -28,9 +36,9 @@ function useCountdown() {
   return now;
 }
 
-export default function Countdown() {
+export default function Countdown({ targetDate }: { targetDate?: string }) {
   const now = useCountdown();
-  const target = nextKickoff();
+  const target = resolveTarget(targetDate);
   const left = now === null ? 0 : Math.max(0, target.getTime() - now);
 
   const dd = Math.floor(left / 86400000);
