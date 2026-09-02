@@ -19,7 +19,7 @@ export type Player = {
   def: number | null;
   phy: number | null;
   ovr: number | null;
-  note: string;
+  note: string[];
   note_raw: string | null;
   photo: string | null;
   status: PlayerStatus;

@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { tierOf } from "@/lib/tier";
+import { pickRandomNote } from "@/lib/notes";
 import type { Player } from "@/lib/types";
 
 const POS_LABEL: Record<string, string> = { POR: "POR", DEF: "DEF", MED: "MED", DEL: "DEL" };
@@ -28,6 +30,7 @@ export default function PlayerCard({
   onClick?: () => void;
 }) {
   const tier = tierOf(player.ovr);
+  const [note] = useState(() => pickRandomNote(player.note));
 
   return (
     <div
@@ -148,7 +151,7 @@ export default function PlayerCard({
           )}
 
           <div className="flex-1" />
-          {player.note && <div className="text-[12px] text-ink-3 text-pretty">{player.note}</div>}
+          {note && <div suppressHydrationWarning className="text-[12px] text-ink-3 text-pretty">{note}</div>}
         </div>
       )}
     </div>

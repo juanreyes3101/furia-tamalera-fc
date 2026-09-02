@@ -26,7 +26,7 @@
     "def": 75,
     "phy": 75,
     "ovr": 78,
-    "note": "",
+    "note": [],
     "note_raw": null,
     "photo": null,
     "status": "answered",
@@ -55,7 +55,7 @@
     "def": 87,
     "phy": 90,
     "ovr": 86,
-    "note": "",
+    "note": [],
     "note_raw": "Veni,Vidi,Venci",
     "photo": null,
     "status": "answered",
@@ -86,7 +86,9 @@
     "def": 90,
     "phy": 82,
     "ovr": 85,
-    "note": "",
+    "note": [
+      "Morata"
+    ],
     "note_raw": null,
     "photo": null,
     "status": "answered",
@@ -99,21 +101,25 @@
     "edad": null,
     "nickname": "Juan",
     "num": 3,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
-    "note": "",
+    "pos": "POR",
+    "positions": [
+      "POR"
+    ],
+    "positionsDetail": [
+      "Portero"
+    ],
+    "pac": 80,
+    "sho": 65,
+    "pas": 75,
+    "dri": 68,
+    "def": 83,
+    "phy": 83,
+    "ovr": 80,
+    "note": [],
     "note_raw": null,
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T13:37:19.000Z"
   },
   {
     "id": "fabian-parra",
@@ -136,7 +142,9 @@
     "def": 87,
     "phy": 79,
     "ovr": 85,
-    "note": "",
+    "note": [
+      "Malambito"
+    ],
     "note_raw": "Enano",
     "photo": null,
     "status": "answered",
@@ -149,21 +157,28 @@
     "edad": null,
     "nickname": "Juan",
     "num": 5,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
-    "note": "",
-    "note_raw": null,
+    "pos": "DEF",
+    "positions": [
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Defensa Central"
+    ],
+    "pac": 80,
+    "sho": 60,
+    "pas": 80,
+    "dri": 75,
+    "def": 90,
+    "phy": 88,
+    "ovr": 84,
+    "note": [
+      "Guaro",
+      "Osito"
+    ],
+    "note_raw": "Osito",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T03:47:12.000Z"
   },
   {
     "id": "deiby-garcia",
@@ -173,20 +188,36 @@
     "nickname": "Deiby",
     "num": 6,
     "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
-    "note": "",
-    "note_raw": null,
+    "positions": [
+      "POR",
+      "DEF",
+      "MED",
+      "DEL"
+    ],
+    "positionsDetail": [
+      "Portero",
+      "Lateral Derecho",
+      "Lateral Izquierdo",
+      "Defensa Central",
+      "Volante Derecho",
+      "Volante Izquierdo",
+      "Mediocampista Central",
+      "Delantero (9)"
+    ],
+    "pac": 97,
+    "sho": 88,
+    "pas": 85,
+    "dri": 85,
+    "def": 65,
+    "phy": 85,
+    "ovr": 84,
+    "note": [
+      "El Sombra"
+    ],
+    "note_raw": "El sombra \nPorq si",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T04:40:46.000Z"
   },
   {
     "id": "emanuel-reyes",
@@ -211,7 +242,9 @@
     "def": 87,
     "phy": 80,
     "ovr": 80,
-    "note": "",
+    "note": [
+      "Kiriku"
+    ],
     "note_raw": "Kiriku",
     "photo": null,
     "status": "answered",
@@ -240,7 +273,9 @@
     "def": 72,
     "phy": 75,
     "ovr": 81,
-    "note": "",
+    "note": [
+      "Dei V"
+    ],
     "note_raw": "Dei v",
     "photo": null,
     "status": "answered",
@@ -271,7 +306,9 @@
     "def": 75,
     "phy": 82,
     "ovr": 80,
-    "note": "",
+    "note": [
+      "Andy"
+    ],
     "note_raw": "Andy, todos me llaman así",
     "photo": null,
     "status": "answered",
@@ -303,7 +340,7 @@
     "def": 87,
     "phy": 75,
     "ovr": 83,
-    "note": "",
+    "note": [],
     "note_raw": null,
     "photo": null,
     "status": "answered",
@@ -316,21 +353,33 @@
     "edad": null,
     "nickname": "Juan",
     "num": 12,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
-    "note": "",
-    "note_raw": null,
+    "pos": "DEL",
+    "positions": [
+      "POR",
+      "MED",
+      "DEL"
+    ],
+    "positionsDetail": [
+      "Portero",
+      "Volante Derecho",
+      "Volante Izquierdo",
+      "Mediocampista Central",
+      "Delantero (9)"
+    ],
+    "pac": 75,
+    "sho": 90,
+    "pas": 85,
+    "dri": 85,
+    "def": 60,
+    "phy": 85,
+    "ovr": 84,
+    "note": [
+      "Milo"
+    ],
+    "note_raw": "Milo",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T11:00:21.000Z"
   },
   {
     "id": "angel-montien",
@@ -357,7 +406,9 @@
     "def": 85,
     "phy": 79,
     "ovr": 82,
-    "note": "",
+    "note": [
+      "Enano"
+    ],
     "note_raw": "Monti, enano, no hace falta explicar mano",
     "photo": null,
     "status": "answered",
@@ -387,7 +438,9 @@
     "def": 82,
     "phy": 75,
     "ovr": 82,
-    "note": "",
+    "note": [
+      "Chuchito"
+    ],
     "note_raw": null,
     "photo": null,
     "status": "answered",
@@ -400,21 +453,28 @@
     "edad": null,
     "nickname": "Nicolas",
     "num": 17,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
-    "note": "",
-    "note_raw": null,
+    "pos": "DEF",
+    "positions": [
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Defensa Central"
+    ],
+    "pac": 82,
+    "sho": 69,
+    "pas": 79,
+    "dri": 72,
+    "def": 89,
+    "phy": 94,
+    "ovr": 85,
+    "note": [
+      "Mapache",
+      "Perry"
+    ],
+    "note_raw": "Mapache",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T03:57:34.000Z"
   },
   {
     "id": "johan-diaz",
@@ -441,7 +501,9 @@
     "def": 85,
     "phy": 65,
     "ovr": 79,
-    "note": "",
+    "note": [
+      "La Avispa"
+    ],
     "note_raw": "La 🐝 un pique y me muero",
     "photo": null,
     "status": "answered",

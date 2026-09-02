@@ -151,6 +151,7 @@ type RosterRow = {
   dri_override: string;
   def_override: string;
   phy_override: string;
+  nota_override: string;
 };
 
 /** Ajustes manuales del mánager por stat (roster_publico_TEMPLATE.csv,
@@ -263,7 +264,7 @@ function main() {
         positionsDetail: [],
         pac: null, sho: null, pas: null, dri: null, def: null, phy: null,
         ovr: null,
-        note: "",
+        note: [],
         note_raw: null,
         photo: null,
         status: "pending",
@@ -318,7 +319,12 @@ function main() {
       positionsDetail: detail,
       pac: adjustedScores.pac, sho: adjustedScores.sho, pas: adjustedScores.pas, dri: adjustedScores.dri, def: adjustedScores.def, phy: adjustedScores.phy,
       ovr,
-      note: "", // se publica solo cuando el mánager aprueba note_raw
+      // se publica solo cuando el mánager aprueba note_raw en nota_override; separa varias
+      // opciones con "|" (ej. "Guaro|Osito") y la ficha elige una al azar en cada visita.
+      note: (r.nota_override ?? "")
+        .split("|")
+        .map((s) => s.trim())
+        .filter(Boolean),
       note_raw: noteRaw,
       photo: null,
       status: "answered",
@@ -339,7 +345,7 @@ function main() {
   writeFileSync(OUTPUT, JSON.stringify(players, null, 2) + "\n", "utf-8");
 
   const answered = players.filter((p) => p.status === "answered").length;
-  const pendingNotes = players.filter((p) => p.note_raw && !p.note).map((p) => p.name);
+  const pendingNotes = players.filter((p) => p.note_raw && p.note.length === 0).map((p) => p.name);
   console.log(`✅ ${players.length} jugadores en data/players.json (${answered} con respuesta, ${players.length - answered} pendientes).`);
   if (pendingNotes.length) {
     console.log(`📝 note_raw pendiente de aprobar (revisa y copia a "note" cuando esté listo): ${pendingNotes.join(", ")}`);

@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { tierOf } from "@/lib/tier";
+import { pickRandomNote } from "@/lib/notes";
 import type { Player } from "@/lib/types";
 
 const BARS: { key: keyof Player; label: string }[] = [
@@ -14,6 +16,7 @@ const BARS: { key: keyof Player; label: string }[] = [
 
 export default function PlayerModal({ player, onClose }: { player: Player; onClose: () => void }) {
   const tier = tierOf(player.ovr);
+  const [note] = useState(() => pickRandomNote(player.note));
 
   return (
     <div
@@ -96,7 +99,7 @@ export default function PlayerModal({ player, onClose }: { player: Player; onClo
                 );
               })
             )}
-            {player.note && <div className="mt-1 text-[11.5px] text-ink-3 text-pretty">{player.note}</div>}
+            {note && <div suppressHydrationWarning className="mt-1 text-[11.5px] text-ink-3 text-pretty">{note}</div>}
           </div>
         </div>
       </div>
