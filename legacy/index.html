@@ -1,0 +1,670 @@
+<title>Furia Tamalera F.C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============
+     Dark, floodlit-pitch identity by design (like the card's own foil finish) —
+     committed single theme, painted explicitly so it holds on any host ground. */
+  :root{
+    --bg: #0c150f;
+    --bg-2: #0f1c13;
+    --surface: #142418;
+    --surface-2: #1a2f1f;
+    --surface-3: #1f3a26;
+    --line: #2a4531;
+    --ink: #f5efe0;
+    --ink-dim: #cdd9cc;
+    --muted: #8fa591;
+    --fire: #e8452c;
+    --fire-dim: #a8341f;
+    --corn: #f4b73f;
+    --corn-dim: #c8922a;
+    --leaf: #57b768;
+    --leaf-dim: #2f7a3c;
+    --cream-tag: #d8cdb0;
+
+    --font-display: "Anton", "Arial Narrow", sans-serif;
+    --font-body: "Work Sans", system-ui, sans-serif;
+    --font-data: "Oswald", "Arial Narrow", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+  }
+  img{ max-width: 100%; }
+  [hidden]{ display:none !important; }
+
+  h1,h2,h3{
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .eyebrow{
+    font-family: var(--font-data);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    color: var(--corn);
+  }
+  a{ color: inherit; }
+  ::selection{ background: var(--fire); color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ============ TEXTURE ============ */
+  .grain{
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    opacity: 0.05; mix-blend-mode: overlay;
+    background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+    background-size: 3px 3px;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(12, 21, 15, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap: 0.65rem; }
+  .crest{
+    width: 34px; height: 34px; border-radius: 8px;
+    background: conic-gradient(from 220deg, var(--leaf), var(--corn), var(--fire), var(--leaf));
+    display: grid; place-items: center;
+    font-size: 1rem;
+  }
+  .brand-name{ font-family: var(--font-data); font-weight: 600; letter-spacing: 0.04em; font-size: 0.95rem; }
+  .brand-name small{ display:block; color: var(--muted); font-weight: 400; font-size: 0.68rem; letter-spacing: 0.1em; }
+  .nav-links{ display:flex; gap: clamp(0.75rem, 2vw, 1.75rem); font-family: var(--font-data); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .nav-links a{ text-decoration:none; color: var(--ink-dim); padding: 0.3rem 0; border-bottom: 2px solid transparent; transition: border-color 0.15s, color 0.15s; }
+  .nav-links a:hover{ color: var(--corn); border-color: var(--corn); }
+
+  /* ============ HERO ============ */
+  .hero{
+    position: relative;
+    padding: clamp(3.5rem, 10vw, 6.5rem) clamp(1rem, 4vw, 2.5rem) clamp(3rem, 8vw, 5rem);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 0%, rgba(232,69,44,0.16), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 100% 10%, rgba(244,183,63,0.12), transparent 60%),
+      linear-gradient(180deg, var(--bg-2), var(--bg));
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner{ max-width: 74rem; margin: 0 auto; position: relative; z-index: 2; }
+  .hero h1{
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .hero h1 .accent{ color: var(--fire); }
+  .hero-sub{
+    margin-top: 1.1rem;
+    max-width: 40rem;
+    font-size: clamp(1rem, 2.2vw, 1.18rem);
+    color: var(--ink-dim);
+  }
+  .hero-meta{
+    margin-top: 2rem;
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1rem;
+  }
+  .chip{
+    font-family: var(--font-data);
+    font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.42rem 0.85rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-dim);
+    background: rgba(255,255,255,0.02);
+  }
+  .chip b{ color: var(--corn); font-weight: 600; }
+  .hero-cta{ margin-top: 2.2rem; display:flex; gap: 0.9rem; flex-wrap: wrap; }
+  .btn{
+    font-family: var(--font-data);
+    text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-primary{ background: linear-gradient(135deg, var(--fire), #c93a24); color: #fff8ee; box-shadow: 0 8px 24px -8px rgba(232,69,44,0.55); }
+  .btn-primary:hover{ box-shadow: 0 10px 28px -6px rgba(232,69,44,0.7); }
+  .btn-ghost{ border-color: var(--line); color: var(--ink-dim); background: rgba(255,255,255,0.02); }
+  .btn-ghost:hover{ border-color: var(--corn); color: var(--corn); }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding: clamp(3rem, 7vw, 4.5rem) clamp(1rem, 4vw, 2.5rem); }
+  .section-inner{ max-width: 74rem; margin: 0 auto; }
+  .section-head{ margin-bottom: 2rem; max-width: 42rem; }
+  .section-head h2{ font-size: clamp(1.8rem, 4.5vw, 2.6rem); text-transform: uppercase; margin-top: 0.35rem; }
+  .section-head p{ color: var(--ink-dim); margin-top: 0.6rem; }
+  .band-alt{ background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  /* ============ ROSTER GRID ============ */
+  .roster-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .card{
+    position: relative;
+    border-radius: 18px;
+    padding: 1.1rem 1.1rem 1.3rem;
+    background:
+      linear-gradient(160deg, rgba(255,255,255,0.05), transparent 40%),
+      var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 14px 30px -18px rgba(0,0,0,0.7);
+    overflow: hidden;
+  }
+  .card::before{
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--pos-color, var(--leaf)) 0%, transparent 3.5px);
+    opacity: 0.9;
+  }
+  .card-top{ display:flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+  .card-ovr{ font-family: var(--font-display); font-size: 2.1rem; line-height: 1; color: var(--corn); font-variant-numeric: tabular-nums; }
+  .card-pos{
+    font-family: var(--font-data); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--pos-color, var(--leaf));
+    border: 1px solid var(--pos-color, var(--leaf));
+    border-radius: 6px; padding: 0.15rem 0.4rem; margin-top: 0.2rem; display: inline-block;
+  }
+  .card-crest{ font-size: 1.4rem; opacity: 0.85; }
+  .card-name{ font-family: var(--font-display); font-size: 1.32rem; text-transform: uppercase; margin-top: 0.7rem; line-height: 1.05; color: var(--ink); text-wrap: balance; }
+  .card-real{ font-size: 0.76rem; color: var(--muted); margin-top: 0.15rem; }
+  .card-quote{ font-size: 0.8rem; font-style: italic; color: var(--ink-dim); margin-top: 0.5rem; min-height: 2.2em; }
+
+  .stat-grid{
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 0.9rem;
+    border-top: 1px dashed var(--line);
+    padding-top: 0.8rem;
+  }
+  .stat{ display:flex; justify-content: space-between; align-items:baseline; font-family: var(--font-data); }
+  .stat b{ font-variant-numeric: tabular-nums; font-size: 0.95rem; color: var(--ink); }
+  .stat span{ font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); }
+  .stat.low b{ color: var(--fire); }
+  .stat.high b{ color: var(--leaf); }
+
+  /* ============ LINEUP BUILDER ============ */
+  .builder{
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) 1fr;
+    gap: 1.4rem;
+    align-items: start;
+  }
+  @media (max-width: 800px){ .builder{ grid-template-columns: 1fr; } }
+
+  .bench{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+    max-height: 640px;
+    overflow-y: auto;
+  }
+  .bench h3{ font-size: 1rem; text-transform: uppercase; color: var(--ink); margin-bottom: 0.2rem; }
+  .bench-hint{ font-size: 0.78rem; color: var(--muted); margin-bottom: 0.85rem; }
+  .bench-list{ display: flex; flex-direction: column; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+
+  .player-chip{
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.55rem 0.7rem;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: grab;
+    font-family: var(--font-body);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .player-chip:hover{ border-color: var(--corn); }
+  .player-chip:active{ cursor: grabbing; }
+  .player-chip.dragging{ opacity: 0.4; }
+  .chip-ovr{ font-family: var(--font-data); font-weight: 700; color: var(--corn); font-size: 0.85rem; width: 1.8em; text-align:center; }
+  .chip-pos{ font-family: var(--font-data); font-size: 0.66rem; letter-spacing: 0.05em; color: var(--pos-color, var(--leaf)); border: 1px solid var(--pos-color, var(--leaf)); border-radius: 5px; padding: 0.08rem 0.3rem; }
+  .chip-name{ font-size: 0.86rem; flex: 1; }
+  .chip-name small{ display:block; color: var(--muted); font-size: 0.68rem; }
+
+  .pitch-wrap{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+  }
+  .pitch-toolbar{ display:flex; justify-content: space-between; align-items:center; gap: 0.7rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .pitch-toolbar h3{ font-size: 1rem; text-transform: uppercase; }
+  .pitch-toolbar .btn{ padding: 0.5rem 0.9rem; font-size: 0.72rem; }
+
+  .pitch{
+    position: relative;
+    aspect-ratio: 3 / 4;
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 12px;
+    background:
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 40px, rgba(255,255,255,0.015) 40px 80px),
+      linear-gradient(180deg, #1b3a24, #12281a);
+    border: 2px solid var(--leaf-dim);
+    overflow: hidden;
+  }
+  .pitch::before, .pitch::after{
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+    width: 34%; aspect-ratio: 2/1; border: 2px solid rgba(245,239,224,0.25); border-bottom: none;
+  }
+  .pitch::before{ top: -1px; }
+  .pitch::after{ bottom: -1px; border-bottom: 2px solid rgba(245,239,224,0.25); border-top: none; }
+  .pitch-center{
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 26%; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(245,239,224,0.25);
+  }
+  .pitch-line{ position:absolute; left: 4%; right: 4%; top: 50%; height: 2px; background: rgba(245,239,224,0.2); }
+
+  .slot{
+    position: absolute;
+    width: 78px; height: 78px;
+    transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.15rem;
+  }
+  .slot-drop{
+    width: 58px; height: 58px; border-radius: 50%;
+    border: 2px dashed rgba(245,239,224,0.4);
+    background: rgba(12,21,15,0.35);
+    display: grid; place-items: center;
+    font-family: var(--font-data); font-size: 0.62rem; color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .slot.over .slot-drop{ border-color: var(--corn); background: rgba(244,183,63,0.15); }
+  .slot-label{ font-family: var(--font-data); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; }
+
+  .slot-card{
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--surface-3);
+    border: 2px solid var(--corn);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: grab;
+    font-family: var(--font-data);
+    line-height: 1.05;
+    box-shadow: 0 6px 14px -6px rgba(0,0,0,0.6);
+  }
+  .slot-card b{ font-size: 0.85rem; color: var(--corn); }
+  .slot-card small{ font-size: 0.5rem; color: var(--ink-dim); max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .slot-warn{ position:absolute; bottom: -1.15rem; font-size: 0.56rem; color: var(--fire); white-space: nowrap; font-family: var(--font-data); }
+
+  .lineup-footer{ margin-top: 1rem; display:flex; justify-content: space-between; align-items:center; gap: 0.7rem; flex-wrap: wrap; }
+  .lineup-avg{ font-family: var(--font-data); font-size: 0.85rem; color: var(--ink-dim); }
+  .lineup-avg b{ color: var(--corn); font-size: 1.1rem; }
+
+  /* ============ LEGEND / FOOTER ============ */
+  .legend{ display:flex; flex-wrap: wrap; gap: 0.5rem 1.3rem; margin-top: 1.2rem; }
+  .legend-item{ display:flex; align-items:center; gap: 0.4rem; font-family: var(--font-data); font-size: 0.72rem; letter-spacing: 0.05em; color: var(--ink-dim); }
+  .dot{ width: 9px; height: 9px; border-radius: 50%; }
+
+  footer{
+    padding: 2.2rem clamp(1rem, 4vw, 2.5rem) 3rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--line);
+  }
+  footer b{ color: var(--ink-dim); }
+</style>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="brand">
+    <div class="crest">🌽</div>
+    <div class="brand-name">FURIA TAMALERA F.C.<small>Fansport · Puente Aranda</small></div>
+  </div>
+  <div class="nav-links">
+    <a href="#plantilla">Plantilla</a>
+    <a href="#alineacion">Alineación</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Fútbol 8 · Temporada 2026</p>
+    <h1>Once amigos.<br>Cero <span class="accent">definición.</span></h1>
+    <p class="hero-sub">La plantilla oficial de Furia Tamalera F.C., calificada por el propio combo — sin filtros,
+      sin favores y con la definición que se merece cada quien. Arma tu once ideal antes del amistoso.</p>
+    <div class="hero-meta">
+      <span class="chip">16 jugadores</span>
+      <span class="chip">Media del equipo <b id="hero-avg">—</b> OVR</span>
+      <span class="chip">Fichaje estrella: <b>Avispa 🐝</b></span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#plantilla">Ver la plantilla ⚽</a>
+      <a class="btn btn-ghost" href="#alineacion">Armar alineación 🧩</a>
+    </div>
+  </div>
+</header>
+
+<section id="plantilla">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Cartas oficiales</p>
+      <h2>La plantilla, sin piedad</h2>
+      <p>Stats del 1 al 99 calculadas con las respuestas sarcásticas del propio equipo — no las inventó nadie de afuera.</p>
+    </div>
+    <div class="legend" style="margin-bottom:1.4rem;">
+      <span class="legend-item"><span class="dot" style="background:var(--corn)"></span> POR</span>
+      <span class="legend-item"><span class="dot" style="background:var(--leaf)"></span> DEF</span>
+      <span class="legend-item"><span class="dot" style="background:var(--cream-tag)"></span> MED</span>
+      <span class="legend-item"><span class="dot" style="background:var(--fire)"></span> DEL</span>
+    </div>
+    <div class="roster-grid" id="roster-grid"></div>
+  </div>
+</section>
+
+<section id="alineacion" class="band-alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Módulo interactivo</p>
+      <h2>Arma tu once ideal</h2>
+      <p>Arrastra desde la banca hacia la cancha. Formación sugerida 1-3-3-1, pero nadie en este equipo respeta la posición asignada de todas formas.</p>
+    </div>
+
+    <div class="builder">
+      <div class="bench">
+        <h3>Banca</h3>
+        <p class="bench-hint">Arrastra un jugador a la cancha →</p>
+        <ul class="bench-list" id="bench-list"></ul>
+      </div>
+
+      <div class="pitch-wrap">
+        <div class="pitch-toolbar">
+          <h3>Cancha</h3>
+          <button class="btn btn-ghost" id="reset-btn" type="button">Vaciar cancha</button>
+        </div>
+        <div class="pitch" id="pitch"></div>
+        <div class="lineup-footer">
+          <span class="lineup-avg">Media del once: <b id="lineup-avg">—</b></span>
+          <span class="lineup-avg" id="lineup-count">0 / 8 en cancha</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>Furia Tamalera F.C.</b> — Torneo Fansport, Puente Aranda, Bogotá. Datos generados por <code>procesar_stats.py</code> a partir del Google Form del equipo.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ DATA ============
+     Estructura idéntica a la que exporta procesar_stats.py → plantilla.json.
+     En un despliegue real este bloque se reemplaza por un fetch('plantilla.json'). */
+  const PLANTILLA = {
+    "equipo": "Furia Tamalera F.C.",
+    "jugadores": [
+      {"nombre":"Sebastián 'El Notificador' Cruz","apodo":"El Notificador","posiciones":["MED"],"ovr":77,"pac":70,"sho":77,"pas":92,"dri":77,"def":66,"phy":75},
+      {"nombre":"Alejandro 'Piloto Automático' Cifuentes","apodo":"Piloto Automático","posiciones":["MED","DEF"],"ovr":75,"pac":74,"sho":78,"pas":75,"dri":69,"def":84,"phy":73},
+      {"nombre":"David 'Aire Acondicionado' León","apodo":"Aire Acondicionado","posiciones":["DEL","MED"],"ovr":75,"pac":69,"sho":77,"pas":76,"dri":74,"def":84,"phy":68},
+      {"nombre":"Esteban 'Wifi Público' Salas","apodo":"Wifi Público","posiciones":["MED"],"ovr":75,"pac":71,"sho":76,"pas":80,"dri":71,"def":76,"phy":73},
+      {"nombre":"Mateo 'Media Pila' Ortiz","apodo":"Media Pila","posiciones":["DEF"],"ovr":74,"pac":81,"sho":68,"pas":75,"dri":68,"def":80,"phy":77},
+      {"nombre":"Tomás 'El Abogado' Marín","apodo":"El Abogado","posiciones":["DEF","DEL"],"ovr":74,"pac":74,"sho":75,"pas":74,"dri":71,"def":73,"phy":75},
+      {"nombre":"Andrés 'Tamal Frío' Gómez","apodo":"Tamal Frío","posiciones":["DEF"],"ovr":73,"pac":78,"sho":84,"pas":77,"dri":63,"def":80,"phy":61},
+      {"nombre":"Manuel 'El Filósofo' Quintero","apodo":"El Filósofo","posiciones":["POR"],"ovr":73,"pac":62,"sho":86,"pas":68,"dri":73,"def":68,"phy":81},
+      {"nombre":"Camilo 'Avispa' Rojas","apodo":"Avispa","posiciones":["DEL"],"ovr":69,"pac":96,"sho":44,"pas":59,"dri":74,"def":76,"phy":65},
+      {"nombre":"Nicolás 'El Profeta' Vargas","apodo":"El Profeta","posiciones":["POR"],"ovr":72,"pac":73,"sho":70,"pas":56,"dri":83,"def":80,"phy":69},
+      {"nombre":"Santiago 'El Notario' Ruiz","apodo":"El Notario","posiciones":["MED","DEF"],"ovr":72,"pac":76,"sho":73,"pas":86,"dri":67,"def":67,"phy":58},
+      {"nombre":"Cristian 'Contador Público' Herrera","apodo":"Contador Público","posiciones":["DEF"],"ovr":71,"pac":74,"sho":82,"pas":65,"dri":60,"def":77,"phy":75},
+      {"nombre":"Julián 'Televisión de los 80' Peña","apodo":"Televisión de los 80","posiciones":["MED"],"ovr":60,"pac":68,"sho":41,"pas":71,"dri":40,"def":68,"phy":74},
+      {"nombre":"Diego 'El Rumbero' Castaño","apodo":"El Rumbero","posiciones":["DEL"],"ovr":69,"pac":59,"sho":65,"pas":79,"dri":70,"def":66,"phy":72},
+      {"nombre":"Felipe 'GPS Averiado' Torres","apodo":"GPS Averiado","posiciones":["DEF"],"ovr":69,"pac":60,"sho":68,"pas":67,"dri":65,"def":90,"phy":64},
+      {"nombre":"Juan Pablo 'El Influencer' Díaz","apodo":"El Influencer","posiciones":["DEL"],"ovr":67,"pac":66,"sho":74,"pas":69,"dri":68,"def":59,"phy":65}
+    ]
+  };
+
+  const FRASES = {
+    "Avispa": "Pega un pique... y se muere.",
+    "Televisión de los 80": "Cero definición, siempre.",
+    "Tamal Frío": "Llega tarde hasta al arranque.",
+    "El Notario": "Reparte pases como si firmara escrituras.",
+    "GPS Averiado": "Marca perfecto... la posición equivocada.",
+    "El Profeta": "Adivina el 60% de los penales, y el resto los reza.",
+    "Aire Acondicionado": "Enfría el partido en los momentos calientes.",
+    "El Notificador": "Avisa la jugada, pero llega tres pasos tarde.",
+    "Media Pila": "Arranca a mil, termina al 40%.",
+    "El Influencer": "Más pendiente del ángulo de cámara que del arco.",
+    "Wifi Público": "Conecta bien... a veces.",
+    "El Abogado": "Siempre alega que la falta no fue para tanto.",
+    "Piloto Automático": "Corre en la misma línea sin importar el rival.",
+    "El Rumbero": "Mejor quiebre de cintura fuera de la cancha.",
+    "Contador Público": "Cuenta los pases perdidos con precisión exacta.",
+    "El Filósofo": "Analiza el gol que le hicieron. Después de recibirlo."
+  };
+
+  const POS_COLOR = { POR: "var(--corn)", DEF: "var(--leaf)", MED: "var(--cream-tag)", DEL: "var(--fire)" };
+  const POS_LABEL = { POR: "Portero", DEF: "Defensa", MED: "Mediocampo", DEL: "Delantero" };
+
+  // Muchos jugadores son polifacéticos: "posiciones" es siempre un arreglo
+  // (1 o más códigos). primaryPos() se usa solo para elegir el color de
+  // acento de la tarjeta/ficha — la etiqueta visible muestra todas.
+  function primaryPos(j){ return (j.posiciones && j.posiciones[0]) || "JUG"; }
+  function posLabel(j){ return (j.posiciones || []).join(" / ") || "JUG"; }
+
+  const jugadores = PLANTILLA.jugadores.map((j, i) => Object.assign(
+    { id: "p" + i },
+    j,
+    { posiciones: j.posiciones || (j.posicion ? [j.posicion] : ["JUG"]) }
+  ));
+
+  /* ============ ROSTER CARDS ============ */
+  const rosterGrid = document.getElementById("roster-grid");
+  const heroAvg = document.getElementById("hero-avg");
+
+  function statClass(v){ if (v >= 80) return "high"; if (v <= 50) return "low"; return ""; }
+
+  function renderRoster(){
+    rosterGrid.innerHTML = jugadores.map(j => `
+      <article class="card" style="--pos-color:${POS_COLOR[primaryPos(j)] || 'var(--leaf)'}">
+        <div class="card-top">
+          <div>
+            <div class="card-ovr">${j.ovr}</div>
+            <span class="card-pos">${posLabel(j)}</span>
+          </div>
+          <div class="card-crest">🌽</div>
+        </div>
+        <div class="card-name">${j.apodo || j.nombre}</div>
+        <div class="card-real">${j.nombre}</div>
+        <div class="card-quote">“${FRASES[j.apodo] || 'Sin comentarios del cuerpo técnico.'}”</div>
+        <div class="stat-grid">
+          <div class="stat ${statClass(j.pac)}"><span>PAC</span><b>${j.pac}</b></div>
+          <div class="stat ${statClass(j.sho)}"><span>SHO</span><b>${j.sho}</b></div>
+          <div class="stat ${statClass(j.pas)}"><span>PAS</span><b>${j.pas}</b></div>
+          <div class="stat ${statClass(j.dri)}"><span>DRI</span><b>${j.dri}</b></div>
+          <div class="stat ${statClass(j.def)}"><span>DEF</span><b>${j.def}</b></div>
+          <div class="stat ${statClass(j.phy)}"><span>PHY</span><b>${j.phy}</b></div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  renderRoster();
+  const avg = Math.round(jugadores.reduce((s, j) => s + j.ovr, 0) / jugadores.length);
+  heroAvg.textContent = avg;
+
+  /* ============ LINEUP BUILDER (native HTML5 Drag & Drop API) ============ */
+  const FORMATION = [
+    { id: "por",  pos: "POR", label: "POR",       x: 50, y: 91 },
+    { id: "def1", pos: "DEF", label: "DEF IZQ",   x: 18, y: 70 },
+    { id: "def2", pos: "DEF", label: "DEF CENTRO", x: 50, y: 74 },
+    { id: "def3", pos: "DEF", label: "DEF DER",   x: 82, y: 70 },
+    { id: "med1", pos: "MED", label: "MED IZQ",   x: 18, y: 42 },
+    { id: "med2", pos: "MED", label: "MED CENTRO", x: 50, y: 46 },
+    { id: "med3", pos: "MED", label: "MED DER",   x: 82, y: 42 },
+    { id: "del1", pos: "DEL", label: "DELANTERO", x: 50, y: 15 }
+  ];
+
+  const benchList = document.getElementById("bench-list");
+  const pitch = document.getElementById("pitch");
+  const resetBtn = document.getElementById("reset-btn");
+  const lineupAvgEl = document.getElementById("lineup-avg");
+  const lineupCountEl = document.getElementById("lineup-count");
+
+  // slotId -> jugador.id
+  let assignments = {};
+
+  function loadSaved(){
+    try {
+      const raw = localStorage.getItem("furia-tamalera-lineup");
+      if (raw) assignments = JSON.parse(raw);
+    } catch (e) { /* almacenamiento no disponible: seguimos solo en memoria */ }
+  }
+  function persist(){
+    try { localStorage.setItem("furia-tamalera-lineup", JSON.stringify(assignments)); } catch (e) {}
+  }
+  loadSaved();
+
+  function playerById(id){ return jugadores.find(j => j.id === id); }
+  function assignedIds(){ return new Set(Object.values(assignments)); }
+
+  function chipMarkup(j){
+    const etiquetas = j.posiciones.map(p => POS_LABEL[p] || p).join(" / ");
+    return `
+      <li class="player-chip" draggable="true" data-id="${j.id}" style="--pos-color:${POS_COLOR[primaryPos(j)] || 'var(--leaf)'}">
+        <span class="chip-ovr">${j.ovr}</span>
+        <span class="chip-pos">${posLabel(j)}</span>
+        <span class="chip-name">${j.apodo || j.nombre}<small>${etiquetas}</small></span>
+      </li>`;
+  }
+
+  function renderBench(){
+    const used = assignedIds();
+    const disponibles = jugadores.filter(j => !used.has(j.id));
+    benchList.innerHTML = disponibles.length
+      ? disponibles.map(chipMarkup).join("")
+      : `<p style="color:var(--muted); font-size:0.82rem;">Todo el mundo está en cancha. Hasta el que dijo que le dolía la rodilla.</p>`;
+  }
+
+  function renderPitch(){
+    pitch.innerHTML = `
+      <div class="pitch-center"></div>
+      <div class="pitch-line"></div>
+      ${FORMATION.map(slot => {
+        const jid = assignments[slot.id];
+        const j = jid ? playerById(jid) : null;
+        const mismatch = j && !j.posiciones.includes(slot.pos);
+        return `
+          <div class="slot" data-slot="${slot.id}" data-pos="${slot.pos}" style="left:${slot.x}%; top:${slot.y}%;">
+            ${ j
+              ? `<div class="slot-card" draggable="true" data-id="${j.id}" data-from-slot="${slot.id}" style="--pos-color:${POS_COLOR[primaryPos(j)]||'var(--leaf)'}">
+                   <b>${j.ovr}</b><small>${j.apodo || j.nombre}</small>
+                 </div>`
+              : `<div class="slot-drop">${slot.label}</div>`
+            }
+            ${ mismatch ? `<span class="slot-warn">fuera de posición, como siempre</span>` : "" }
+          </div>`;
+      }).join("")}
+    `;
+    wireSlotEvents();
+    wirePitchCardDrag();
+  }
+
+  function computeLineupAvg(){
+    const ids = Object.values(assignments);
+    if (!ids.length){ lineupAvgEl.textContent = "—"; lineupCountEl.textContent = "0 / 8 en cancha"; return; }
+    const players = ids.map(playerById).filter(Boolean);
+    const avgOvr = Math.round(players.reduce((s, j) => s + j.ovr, 0) / players.length);
+    lineupAvgEl.textContent = avgOvr;
+    lineupCountEl.textContent = `${players.length} / 8 en cancha`;
+  }
+
+  function refreshAll(){ renderBench(); renderPitch(); computeLineupAvg(); persist(); }
+
+  /* --- Drag source: bench chips --- */
+  benchList.addEventListener("dragstart", (e) => {
+    const chip = e.target.closest(".player-chip");
+    if (!chip) return;
+    e.dataTransfer.setData("text/plain", JSON.stringify({ id: chip.dataset.id, from: "bench" }));
+    e.dataTransfer.effectAllowed = "move";
+    chip.classList.add("dragging");
+  });
+  benchList.addEventListener("dragend", (e) => {
+    const chip = e.target.closest(".player-chip");
+    if (chip) chip.classList.remove("dragging");
+  });
+
+  /* --- Drag source: cards already on the pitch (move / swap) --- */
+  function wirePitchCardDrag(){
+    pitch.querySelectorAll(".slot-card").forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", JSON.stringify({ id: card.dataset.id, from: "slot", fromSlot: card.dataset.fromSlot }));
+        e.dataTransfer.effectAllowed = "move";
+      });
+    });
+  }
+
+  /* --- Drop targets: pitch slots --- */
+  function wireSlotEvents(){
+    pitch.querySelectorAll(".slot").forEach(slotEl => {
+      slotEl.addEventListener("dragover", (e) => { e.preventDefault(); slotEl.classList.add("over"); });
+      slotEl.addEventListener("dragleave", () => slotEl.classList.remove("over"));
+      slotEl.addEventListener("drop", (e) => {
+        e.preventDefault();
+        slotEl.classList.remove("over");
+        let data;
+        try { data = JSON.parse(e.dataTransfer.getData("text/plain")); } catch (err) { return; }
+        const targetSlot = slotEl.dataset.slot;
+        const incomingId = data.id;
+        const previousOccupant = assignments[targetSlot];
+
+        if (data.from === "slot" && data.fromSlot) {
+          // swap or move between slots
+          if (data.fromSlot === targetSlot) return;
+          delete assignments[data.fromSlot];
+          if (previousOccupant) assignments[data.fromSlot] = previousOccupant;
+        }
+        assignments[targetSlot] = incomingId;
+        refreshAll();
+      });
+    });
+  }
+
+  /* --- Drop target: bench (drag a card back off the pitch) --- */
+  benchList.addEventListener("dragover", (e) => e.preventDefault());
+  benchList.addEventListener("drop", (e) => {
+    e.preventDefault();
+    let data;
+    try { data = JSON.parse(e.dataTransfer.getData("text/plain")); } catch (err) { return; }
+    if (data.from === "slot" && data.fromSlot) {
+      delete assignments[data.fromSlot];
+      refreshAll();
+    }
+  });
+
+  resetBtn.addEventListener("click", () => { assignments = {}; refreshAll(); });
+
+  refreshAll();
+})();
+</script>

@@ -1,0 +1,248 @@
+{
+  "equipo": "Furia Tamalera F.C.",
+  "jugadores": [
+    {
+      "nombre": "Aire Acondicionado",
+      "apodo": "Aire Acondicionado",
+      "posiciones": [
+        "DEL",
+        "MED"
+      ],
+      "posicion": "DEL/MED",
+      "ovr": 81,
+      "pac": 70,
+      "sho": 77,
+      "pas": 94,
+      "dri": 69,
+      "def": 87,
+      "phy": 90
+    },
+    {
+      "nombre": "Tamal Frío",
+      "apodo": "Tamal Frío",
+      "posiciones": [
+        "DEF"
+      ],
+      "posicion": "DEF",
+      "ovr": 80,
+      "pac": 90,
+      "sho": 77,
+      "pas": 72,
+      "dri": 79,
+      "def": 73,
+      "phy": 90
+    },
+    {
+      "nombre": "Piloto Automático",
+      "apodo": "Piloto Automático",
+      "posiciones": [
+        "MED"
+      ],
+      "posicion": "MED",
+      "ovr": 80,
+      "pac": 69,
+      "sho": 84,
+      "pas": 85,
+      "dri": 70,
+      "def": 82,
+      "phy": 90
+    },
+    {
+      "nombre": "Avispa",
+      "apodo": "Avispa",
+      "posiciones": [
+        "DEL"
+      ],
+      "posicion": "DEL",
+      "ovr": 78,
+      "pac": 70,
+      "sho": 79,
+      "pas": 90,
+      "dri": 82,
+      "def": 73,
+      "phy": 69
+    },
+    {
+      "nombre": "El Notificador",
+      "apodo": "El Notificador",
+      "posiciones": [
+        "MED"
+      ],
+      "posicion": "MED",
+      "ovr": 77,
+      "pac": 90,
+      "sho": 76,
+      "pas": 70,
+      "dri": 69,
+      "def": 81,
+      "phy": 82
+    },
+    {
+      "nombre": "El Notario",
+      "apodo": "El Notario",
+      "posiciones": [
+        "MED",
+        "DEF"
+      ],
+      "posicion": "MED/DEF",
+      "ovr": 76,
+      "pac": 75,
+      "sho": 94,
+      "pas": 94,
+      "dri": 65,
+      "def": 60,
+      "phy": 66
+    },
+    {
+      "nombre": "Media Pila",
+      "apodo": "Media Pila",
+      "posiciones": [
+        "DEF"
+      ],
+      "posicion": "DEF",
+      "ovr": 76,
+      "pac": 77,
+      "sho": 62,
+      "pas": 73,
+      "dri": 77,
+      "def": 81,
+      "phy": 84
+    },
+    {
+      "nombre": "El Rumbero",
+      "apodo": "El Rumbero",
+      "posiciones": [
+        "DEL"
+      ],
+      "posicion": "DEL",
+      "ovr": 76,
+      "pac": 69,
+      "sho": 81,
+      "pas": 73,
+      "dri": 82,
+      "def": 84,
+      "phy": 63
+    },
+    {
+      "nombre": "Contador Público",
+      "apodo": "Contador Público",
+      "posiciones": [
+        "DEF"
+      ],
+      "posicion": "DEF",
+      "ovr": 76,
+      "pac": 77,
+      "sho": 87,
+      "pas": 77,
+      "dri": 75,
+      "def": 81,
+      "phy": 56
+    },
+    {
+      "nombre": "Televisión de los 80",
+      "apodo": "Televisión de los 80",
+      "posiciones": [
+        "MED"
+      ],
+      "posicion": "MED",
+      "ovr": 75,
+      "pac": 81,
+      "sho": 76,
+      "pas": 65,
+      "dri": 70,
+      "def": 73,
+      "phy": 90
+    },
+    {
+      "nombre": "El Influencer",
+      "apodo": "El Influencer",
+      "posiciones": [
+        "DEL"
+      ],
+      "posicion": "DEL",
+      "ovr": 74,
+      "pac": 82,
+      "sho": 75,
+      "pas": 77,
+      "dri": 73,
+      "def": 69,
+      "phy": 66
+    },
+    {
+      "nombre": "El Abogado",
+      "apodo": "El Abogado",
+      "posiciones": [
+        "DEF",
+        "DEL"
+      ],
+      "posicion": "DEF/DEL",
+      "ovr": 73,
+      "pac": 81,
+      "sho": 69,
+      "pas": 63,
+      "dri": 62,
+      "def": 90,
+      "phy": 77
+    },
+    {
+      "nombre": "GPS Averiado",
+      "apodo": "GPS Averiado",
+      "posiciones": [
+        "DEF"
+      ],
+      "posicion": "DEF",
+      "ovr": 72,
+      "pac": 82,
+      "sho": 69,
+      "pas": 69,
+      "dri": 75,
+      "def": 60,
+      "phy": 77
+    },
+    {
+      "nombre": "El Profeta",
+      "apodo": "El Profeta",
+      "posiciones": [
+        "POR"
+      ],
+      "posicion": "POR",
+      "ovr": 72,
+      "pac": 69,
+      "sho": 85,
+      "pas": 69,
+      "dri": 63,
+      "def": 75,
+      "phy": 75
+    },
+    {
+      "nombre": "El Filósofo",
+      "apodo": "El Filósofo",
+      "posiciones": [
+        "POR"
+      ],
+      "posicion": "POR",
+      "ovr": 72,
+      "pac": 66,
+      "sho": 85,
+      "pas": 72,
+      "dri": 69,
+      "def": 66,
+      "phy": 77
+    },
+    {
+      "nombre": "Wifi Público",
+      "apodo": "Wifi Público",
+      "posiciones": [
+        "MED"
+      ],
+      "posicion": "MED",
+      "ovr": 66,
+      "pac": 56,
+      "sho": 70,
+      "pas": 63,
+      "dri": 63,
+      "def": 59,
+      "phy": 90
+    }
+  ]
+}

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:#161826; color:#e9e9ed; font-family:"Inter",system-ui,sans-serif; font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  *, *::before, *::after { box-sizing:border-box; }
+  a { color:#7ee0a8; text-decoration:none; }
+  a:hover { color:#c9f5dc; }
+  :focus-visible { outline:2px solid #2fa26a; outline-offset:2px; }
+  ::selection { background:rgba(47,162,106,0.3); }
+  @keyframes aurora { 0%{transform:translate3d(-6%,-4%,0) scale(1.1)} 50%{transform:translate3d(6%,4%,0) scale(1.25)} 100%{transform:translate3d(-6%,-4%,0) scale(1.1)} }
+  @keyframes ember { 0%{transform:translateY(0) scale(.6);opacity:0} 12%{opacity:.9} 100%{transform:translateY(-780px) scale(1.1);opacity:0} }
+  @keyframes sweep { 0%{transform:translateX(-120%) skewX(-18deg)} 100%{transform:translateX(320%) skewX(-18deg)} }
+  @keyframes pulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+  @keyframes spinslow { to { transform:rotate(360deg) } }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  @keyframes reveal { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+  @keyframes grow { from { transform:scaleX(0) } to { transform:scaleX(1) } }
+  [data-card]:hover [data-shine] { opacity:1; animation: sweep 1.1s ease-out; }
+  @keyframes shotX { 0%{transform:translateX(0)} 62%{transform:translateX(360px)} 100%{transform:translateX(376px)} }
+  @keyframes shotY { 0%{transform:translateY(0)} 46%{transform:translateY(-124px)} 62%{transform:translateY(-78px)} 74%{transform:translateY(-64px)} 100%{transform:translateY(-58px)} }
+  @keyframes ballspin { 0%{transform:rotate(0)} 62%{transform:rotate(920deg)} 100%{transform:rotate(960deg)} }
+  @keyframes netpush { 0%,60%{transform:scale(1)} 68%{transform:scale(1.05,1.08)} 78%{transform:scale(.985)} 88%{transform:scale(1.008)} 100%{transform:scale(1)} }
+  @keyframes golflash { 0%,63%{opacity:0; transform:translateY(8px) scale(.92)} 71%{opacity:1; transform:translateY(0) scale(1)} 92%{opacity:1} 100%{opacity:0} }
+  @keyframes trailfade { 0%,10%{opacity:0} 30%{opacity:.5} 62%{opacity:.5} 70%{opacity:0} 100%{opacity:0} }
+  @keyframes ballDrift { 0%{transform:translate3d(0,0,0) rotate(0)} 25%{transform:translate3d(6vw,-9vh,0) rotate(90deg)} 50%{transform:translate3d(-4vw,-18vh,0) rotate(180deg)} 75%{transform:translate3d(-9vw,-9vh,0) rotate(270deg)} 100%{transform:translate3d(0,0,0) rotate(360deg)} }
+  @keyframes rollAcross { from{left:-40px; transform:rotate(0)} to{left:calc(100% + 40px); transform:rotate(1080deg)} }
+  [data-reveal] { animation: reveal .8s cubic-bezier(.2,.7,.3,1) both; animation-timeline: view(); animation-range: entry 0% cover 26%; }
+</style>
+</helmet>
+
+<div style="position:relative; overflow-x:hidden; background:#161826;">
+
+  <div style="position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;">
+    <div style="position:absolute; inset:0; background:radial-gradient(60vw 60vw at 8% 4%, rgba(47,162,106,.22), transparent 62%), radial-gradient(52vw 52vw at 96% 40%, rgba(224,75,42,.18), transparent 62%), radial-gradient(48vw 48vw at 45% 104%, rgba(227,178,60,.15), transparent 62%);"></div>
+    <div style="position:absolute; width:46vw; height:46vw; left:6vw; top:-10vw; border-radius:50%; filter:blur(70px); opacity:.42; will-change:transform; background:radial-gradient(circle at 50% 50%, rgba(47,162,106,.5), rgba(47,162,106,0) 68%); animation:aurora 30s ease-in-out infinite;"></div>
+    <div style="position:absolute; inset:0; opacity:.06; background-image:linear-gradient(rgba(233,233,237,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(233,233,237,.6) 1px, transparent 1px); background-size:64px 64px; mask-image:radial-gradient(ellipse at 50% 30%, #000 20%, transparent 78%);"></div>
+    <sc-for list="{{ balls }}" as="b" hint-placeholder-count="5">
+      <div style="position:absolute; left:{{ b.l }}%; top:{{ b.t }}%; width:{{ b.size }}px; height:{{ b.size }}px; opacity:{{ b.opacity }}; will-change:transform; animation:ballDrift {{ b.dur }}s ease-in-out {{ b.delay }}s infinite;">
+        <img src="assets/balon-v3.png" alt="" style="width:100%; height:100%; display:block;">
+      </div>
+    </sc-for>
+    <sc-for list="{{ embers }}" as="e" hint-placeholder-count="9">
+      <div style="position:absolute; bottom:-30px; left:{{ e.l }}%; width:{{ e.s }}px; height:{{ e.s }}px; border-radius:50%; background:{{ e.c }}; box-shadow:0 0 12px {{ e.c }}; animation:ember {{ e.d }}s linear {{ e.delay }}s infinite;"></div>
+    </sc-for>
+  </div>
+
+  <header style="position:sticky; top:0; z-index:50; backdrop-filter:blur(14px); background:rgba(22,24,38,.78); border-bottom:1px solid rgba(233,233,237,.10);">
+    <nav style="max-width:1240px; margin:0 auto; padding:11.2px 22.4px; display:flex; align-items:center; gap:16.8px;">
+      <a href="#top" style="display:flex; align-items:center; gap:8.4px; color:#e9e9ed;">
+        <img src="assets/escudo.png" alt="Escudo Furia Tamalera FC" style="width:34px; height:34px; object-fit:contain; filter:drop-shadow(0 2px 5px rgba(0,0,0,.6));">
+        <span style="font-weight:700; letter-spacing:.14em; font-size:12px; text-transform:uppercase;">Furia Tamalera <span style="color:#e3b23c;">FC</span></span>
+      </a>
+      <div style="flex:1;"></div>
+      <div style="display:flex; gap:2.8px; flex-wrap:wrap;">
+        <a href="#plantilla" style="padding:6px 11.2px; border-radius:8px; font-size:12.5px; font-weight:500; color:#b2b6ca; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.14); color:#e9e9ed;">Plantilla</a>
+        <a href="#tactica" style="padding:6px 11.2px; border-radius:8px; font-size:12.5px; font-weight:500; color:#b2b6ca; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.14); color:#e9e9ed;">Táctica</a>
+        <a href="#tabla" style="padding:6px 11.2px; border-radius:8px; font-size:12.5px; font-weight:500; color:#b2b6ca; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.14); color:#e9e9ed;">Tabla</a>
+        <a href="#matchday" style="padding:6px 11.2px; border-radius:8px; font-size:12.5px; font-weight:500; color:#b2b6ca; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.14); color:#e9e9ed;">Matchday</a>
+        <a href="#novedades" style="padding:6px 11.2px; border-radius:8px; font-size:12.5px; font-weight:500; color:#b2b6ca; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.14); color:#e9e9ed;">Novedades</a>
+      </div>
+      <a href="#patrocinio" style="padding:7px 14px; border-radius:8px; border:1px solid #2fa26a; color:#7ee0a8; font-size:12.5px; font-weight:600; letter-spacing:.05em;" style-hover="background:rgba(47,162,106,.16); color:#c9f5dc;">Patrocina</a>
+    </nav>
+  </header>
+
+  <main id="top" style="position:relative; z-index:1;">
+
+    <section style="max-width:1240px; margin:0 auto; padding:78px 22.4px 56px; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:44.8px; align-items:center;">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:8.4px; padding:5px 11.2px; border-radius:999px; border:1px solid rgba(227,178,60,.35); background:rgba(227,178,60,.08); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#e3b23c; font-weight:600;">
+          <span style="width:6px; height:6px; border-radius:50%; background:#e04b2a; animation:pulse 1.8s ease-in-out infinite;"></span>
+          Est. 2026 · Bogotá · Fútbol 8
+        </div>
+        <h1 style="font-size:clamp(46px,7.2vw,92px); line-height:.92; letter-spacing:-.035em; font-weight:800; margin:16.8px 0 0; text-wrap:balance;">
+          <span style="display:block; color:#e9e9ed;">FURIA</span>
+          <span style="display:block; background:linear-gradient(96deg,#e3b23c,#e04b2a 46%,#2fa26a); -webkit-background-clip:text; background-clip:text; color:transparent;">TAMALERA</span>
+        </h1>
+        <p style="margin:16.8px 0 0; max-width:52ch; font-size:17px; color:#b2b6ca; text-wrap:pretty;">
+          Dieciséis amigos, un torneo de verdad y cero excusas. Jugamos por la diversión, competimos para medir hasta dónde llega este grupo. Bienvenido al parche.
+        </p>
+        <div style="display:flex; gap:11.2px; flex-wrap:wrap; margin-top:22.4px;">
+          <a href="#plantilla" style="padding:11px 20px; border-radius:8px; border:1px solid #2fa26a; color:#7ee0a8; font-weight:600; font-size:14px; letter-spacing:.03em;" style-hover="background:rgba(47,162,106,.16); color:#c9f5dc;">Ver la plantilla</a>
+          <a href="https://www.tiktok.com/@furia_tamalera_fc" target="_blank" rel="noopener" style="padding:11px 20px; border-radius:8px; border:1px solid rgba(233,233,237,.22); color:#b2b6ca; font-weight:600; font-size:14px; letter-spacing:.03em;" style-hover="border-color:rgba(227,178,60,.55); color:#e3b23c;">TikTok @furia_tamalera_fc</a>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:11.2px; margin-top:33.6px; max-width:560px;">
+          <div style="padding:11.2px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d;">
+            <div style="font-size:26px; font-weight:700; color:#e9e9ed; letter-spacing:-.02em;">16</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#75798c; font-weight:600;">Jugadores</div>
+          </div>
+          <div style="padding:11.2px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d;">
+            <div style="font-size:26px; font-weight:700; color:#e9e9ed; letter-spacing:-.02em;">~60</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#75798c; font-weight:600;">Equipos rivales</div>
+          </div>
+          <div style="padding:11.2px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d;">
+            <div style="font-size:26px; font-weight:700; color:#e9e9ed; letter-spacing:-.02em;">6</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#75798c; font-weight:600;">Formaciones</div>
+          </div>
+          <div style="padding:11.2px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d;">
+            <div style="font-size:26px; font-weight:700; color:#e3b23c; letter-spacing:-.02em;">1</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#75798c; font-weight:600;">Objetivo: la copa</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative; display:flex; align-items:center; justify-content:center; min-height:380px;">
+        <div style="position:absolute; width:104%; aspect-ratio:1; border-radius:50%; border:1px dashed rgba(227,178,60,.22); animation:spinslow 60s linear infinite;"></div>
+        <div style="position:absolute; width:78%; aspect-ratio:1; border-radius:50%; border:1px solid rgba(47,162,106,.22); animation:spinslow 40s linear infinite reverse;"></div>
+        <div style="position:relative; width:84%; max-width:380px; display:flex; flex-direction:column; align-items:center; gap:16.8px; animation:float 7s ease-in-out infinite;">
+          <div style="position:absolute; left:50%; top:52%; width:78%; aspect-ratio:1; margin-left:-39%; margin-top:-39%; border-radius:50%; filter:blur(46px); background:radial-gradient(circle, rgba(227,178,60,.35), rgba(224,75,42,.16) 55%, transparent 72%); animation:pulse 5s ease-in-out infinite;"></div>
+          <img src="assets/escudo.png" alt="Escudo de Furia Tamalera FC" style="position:relative; width:100%; display:block; filter:drop-shadow(0 22px 34px rgba(0,0,0,.75)) drop-shadow(0 0 26px rgba(227,178,60,.22));">
+          <div style="position:relative; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#e3b23c; font-weight:700;">El tamal se sirve caliente</div>
+        </div>
+      </div>
+    </section>
+
+    <div style="border-top:1px solid rgba(233,233,237,.10); border-bottom:1px solid rgba(233,233,237,.10); background:rgba(35,37,50,.45); overflow:hidden; padding:9px 0;">
+      <div style="display:flex; width:max-content; animation:marquee 28s linear infinite;">
+        <div style="display:flex; gap:33.6px; padding-right:33.6px; font-size:11.5px; letter-spacing:.24em; text-transform:uppercase; color:#75798c; font-weight:600; white-space:nowrap;">
+          <span>Torneo Fansport</span><span style="color:#2fa26a;">◆</span><span>Bogotá</span><span style="color:#e3b23c;">◆</span><span>Fútbol 8</span><span style="color:#e04b2a;">◆</span><span>Amistoso este fin de semana</span><span style="color:#2fa26a;">◆</span><span>Arranca el torneo la próxima</span><span style="color:#e3b23c;">◆</span>
+        </div>
+        <div style="display:flex; gap:33.6px; padding-right:33.6px; font-size:11.5px; letter-spacing:.24em; text-transform:uppercase; color:#75798c; font-weight:600; white-space:nowrap;">
+          <span>Torneo Fansport</span><span style="color:#2fa26a;">◆</span><span>Bogotá</span><span style="color:#e3b23c;">◆</span><span>Fútbol 8</span><span style="color:#e04b2a;">◆</span><span>Amistoso este fin de semana</span><span style="color:#2fa26a;">◆</span><span>Arranca el torneo la próxima</span><span style="color:#e3b23c;">◆</span>
+        </div>
+      </div>
+    </div>
+
+    <section id="manifiesto" style="max-width:1240px; margin:0 auto; padding:78px 22.4px;">
+      <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:44.8px;">
+        <div>
+          <h6 style="margin:0 0 11.2px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2fa26a; font-weight:700;">Quiénes somos</h6>
+          <h2 style="margin:0; font-size:clamp(30px,3.6vw,44px); line-height:1.05; letter-spacing:-.03em; font-weight:600; text-wrap:balance;">Un parche que se tomó en serio lo de jugar por diversión.</h2>
+        </div>
+        <div style="display:grid; gap:22.4px;">
+          <p style="margin:0; font-size:17px; color:#cfd3e5; text-wrap:pretty;">Furia Tamalera nació entre amigos, con la excusa perfecta: un tamal, una cancha y ganas de competir. Hoy somos 16 y entramos al Torneo Fansport de Bogotá, uno de los circuitos de fútbol 8 más grandes de la ciudad.</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16.8px;">
+            <div style="padding:16.8px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d; border-top:2px solid #2fa26a;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.02em; color:#e9e9ed; margin-bottom:5.6px;">Diversión primero</div>
+              <p style="margin:0; font-size:13.5px; color:#9397ab;">Nadie cobra por jugar. Se viene a reír, a molestar al que falló y a volver el domingo.</p>
+            </div>
+            <div style="padding:16.8px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d; border-top:2px solid #e3b23c;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.02em; color:#e9e9ed; margin-bottom:5.6px;">Probar nivel</div>
+              <p style="margin:0; font-size:13.5px; color:#9397ab;">Un torneo real, con árbitro y tabla. Queremos saber exactamente dónde estamos parados.</p>
+            </div>
+            <div style="padding:16.8px; border-radius:8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d; border-top:2px solid #e04b2a;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.02em; color:#e9e9ed; margin-bottom:5.6px;">Cantera propia</div>
+              <p style="margin:0; font-size:13.5px; color:#9397ab;">Hay pelaos en el grupo con nivel de sobra. Este equipo también es su vitrina.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plantilla" style="max-width:1240px; margin:0 auto; padding:22.4px 22.4px 78px;">
+      <div data-reveal style="display:flex; align-items:flex-end; gap:22.4px; flex-wrap:wrap; margin-bottom:6px;">
+        <div>
+          <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2fa26a; font-weight:700;">La plantilla</h6>
+          <h2 style="margin:0; font-size:clamp(30px,3.6vw,44px); line-height:1.05; letter-spacing:-.03em; font-weight:600;">16 cartas, 16 historias</h2>
+        </div>
+        <div style="flex:1;"></div>
+        <div style="display:flex; gap:5.6px; flex-wrap:wrap; align-items:center;">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+            <button type="button" onClick="{{ f.onClick }}" style="cursor:pointer; font-family:inherit; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; background:{{ f.bg }}; color:{{ f.fg }}; border:1px solid {{ f.bd }};" style-hover="border-color:#2fa26a;">{{ f.label }}</button>
+          </sc-for>
+          <span style="width:1px; height:22px; background:rgba(233,233,237,.16); margin:0 5.6px;"></span>
+          <sc-for list="{{ viewTabs }}" as="v" hint-placeholder-count="2">
+            <button type="button" onClick="{{ v.onClick }}" style="cursor:pointer; font-family:inherit; padding:7px 14px; border-radius:8px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; background:{{ v.bg }}; color:{{ v.fg }}; border:1px solid {{ v.bd }};" style-hover="border-color:#e3b23c;">{{ v.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <p style="margin:0 0 22.4px; font-size:12.5px; color:#75798c;">Medias provisionales — se ajustan tras los primeros partidos. Toca un jugador para abrir su carta.</p>
+
+      <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; gap:22.4px;">
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+            <div data-reveal>
+              <div style="display:flex; align-items:center; gap:11.2px; margin-bottom:9px;">
+                <span style="font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:{{ g.ink }}; font-weight:700;">{{ g.label }}</span>
+                <span style="font-size:11px; color:#75798c;">{{ g.count }}</span>
+                <span style="flex:1; height:1px; background:linear-gradient(to right, rgba(233,233,237,.18), transparent);"></span>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:5.6px;">
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ r.onOpen }}" style="cursor:pointer; font-family:inherit; text-align:left; display:flex; align-items:center; gap:11.2px; padding:9px 11.2px; border-radius:8px; border:1px solid rgba(233,233,237,.10); background:rgba(35,37,50,.6); color:#e9e9ed; transition:border-color .2s, transform .2s;" style-hover="border-color:{{ r.ink }}; transform:translateX(4px);">
+                    <span style="width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; background:rgba(233,233,237,.07); color:#b2b6ca;">{{ r.num }}</span>
+                    <span style="flex:1; min-width:0;">
+                      <span style="display:block; font-size:13.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.name }}</span>
+                      <span style="display:block; font-size:11px; color:#75798c;">{{ r.hint }}</span>
+                    </span>
+                    <span style="font-size:18px; font-weight:800; letter-spacing:-.03em; color:{{ r.ink }};">{{ r.ovr }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCards }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16.8px;">
+        <sc-for list="{{ visiblePlayers }}" as="p" hint-placeholder-count="8">
+          <div data-reveal data-card onClick="{{ p.onFlip }}" style="cursor:pointer; position:relative; aspect-ratio:0.72; border-radius:14px; overflow:hidden; background:linear-gradient(168deg, {{ p.tintA }}, #1b1d2b 58%, {{ p.tintB }}); box-shadow:0 0 0 1px {{ p.edge }}, 0 12px 30px rgba(0,0,0,.5); transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s;" style-hover="transform:translateY(-8px) scale(1.02); box-shadow:0 0 0 1px {{ p.edge }}, 0 22px 46px rgba(0,0,0,.62);">
+            <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
+              <div data-shine style="position:absolute; top:0; left:0; width:34%; height:100%; opacity:0; background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);"></div>
+            </div>
+
+            <sc-if value="{{ p.front }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute; inset:0; display:grid; grid-template-rows:auto 1fr auto auto; padding:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div>
+                    <div style="font-size:38px; line-height:.9; font-weight:800; letter-spacing:-.04em; color:{{ p.ink }};">{{ p.ovr }}</div>
+                    <div style="font-size:11px; letter-spacing:.16em; font-weight:700; color:{{ p.ink }}; opacity:.85;">{{ p.pos }}</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:20px; font-weight:700; color:{{ p.ink }}; opacity:.9;">{{ p.numLabel }}</div>
+                    <div style="width:22px; height:22px; margin-left:auto; margin-top:5px; border-radius:5px; background:linear-gradient(135deg,#f5c542,#e04b2a 60%,#2fa26a); opacity:.9;"></div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:flex-end; justify-content:center; min-height:0;">
+                  <div style="width:82%; height:88%; border-radius:8px; background-image:repeating-linear-gradient(135deg, rgba(233,233,237,.07) 0 6px, rgba(233,233,237,0) 6px 12px); border:1px dashed rgba(233,233,237,.16); display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px;">
+                    <span style="font-family:ui-monospace,Menlo,monospace; font-size:9.5px; letter-spacing:.1em; color:#75798c; text-transform:uppercase;">foto jugador</span>
+                  </div>
+                </div>
+                <div style="text-align:center; margin-top:9px;">
+                  <div style="font-size:15px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:#e9e9ed;">{{ p.name }}</div>
+                  <div style="height:1px; margin:7px 0; background:linear-gradient(to right, transparent, rgba(233,233,237,.22), transparent);"></div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1px 1fr; gap:8px; font-size:11.5px;">
+                  <div style="display:grid; gap:2.8px;">
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">PAC</span><span style="font-weight:700; color:#e9e9ed;">{{ p.pac }}</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">TIR</span><span style="font-weight:700; color:#e9e9ed;">{{ p.sho }}</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">PAS</span><span style="font-weight:700; color:#e9e9ed;">{{ p.pas }}</span></div>
+                  </div>
+                  <div style="background:rgba(233,233,237,.14);"></div>
+                  <div style="display:grid; gap:2.8px;">
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">REG</span><span style="font-weight:700; color:#e9e9ed;">{{ p.dri }}</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">DEF</span><span style="font-weight:700; color:#e9e9ed;">{{ p.def }}</span></div>
+                    <div style="display:flex; justify-content:space-between;"><span style="color:#9397ab; font-weight:600;">FÍS</span><span style="font-weight:700; color:#e9e9ed;">{{ p.phy }}</span></div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ p.back }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; inset:0; padding:16.8px; display:flex; flex-direction:column; gap:9px; background:rgba(22,24,38,.72);">
+                <div style="font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:{{ p.ink }}; font-weight:700;">{{ p.tierLabel }}</div>
+                <div style="font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:.03em;">{{ p.name }}</div>
+                <div style="display:grid; gap:7px; margin-top:2px;">
+                  <sc-for list="{{ p.bars }}" as="b" hint-placeholder-count="6">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; font-size:10.5px; color:#9397ab; font-weight:600; letter-spacing:.06em;"><span>{{ b.k }}</span><span style="color:#e9e9ed;">{{ b.v }}</span></div>
+                      <div style="height:4px; border-radius:999px; background:rgba(233,233,237,.10); overflow:hidden; margin-top:3px;">
+                        <div style="height:100%; width:{{ b.v }}%; border-radius:999px; background:linear-gradient(90deg,#2fa26a,{{ p.ink }}); transform-origin:left; animation:grow .7s cubic-bezier(.2,.7,.3,1) both;"></div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="flex:1;"></div>
+                <div style="font-size:12px; color:#9397ab; text-wrap:pretty;">{{ p.note }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeModal }}" style="position:fixed; inset:0; z-index:90; background:rgba(10,11,18,.78); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:22.4px; animation:reveal .25s ease-out both;">
+          <div style="position:relative; width:300px; max-width:100%; aspect-ratio:0.72; border-radius:14px; overflow:hidden; background:linear-gradient(168deg, {{ modal.tintA }}, #1b1d2b 58%, {{ modal.tintB }}); box-shadow:0 0 0 1px {{ modal.edge }}, 0 26px 60px rgba(0,0,0,.7);">
+            <div style="position:absolute; inset:0; display:grid; grid-template-rows:auto 1fr auto auto; padding:16.8px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <div style="font-size:46px; line-height:.9; font-weight:800; letter-spacing:-.04em; color:{{ modal.ink }};">{{ modal.ovr }}</div>
+                  <div style="font-size:12px; letter-spacing:.16em; font-weight:700; color:{{ modal.ink }}; opacity:.85;">{{ modal.pos }}</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:22px; font-weight:700; color:{{ modal.ink }}; opacity:.9;">{{ modal.numLabel }}</div>
+                  <div style="width:24px; height:24px; margin-left:auto; margin-top:5px; border-radius:5px; background:linear-gradient(135deg,#f5c542,#e04b2a 60%,#2fa26a); opacity:.9;"></div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:flex-end; justify-content:center; min-height:0;">
+                <div style="width:80%; height:90%; border-radius:8px; background-image:repeating-linear-gradient(135deg, rgba(233,233,237,.07) 0 6px, rgba(233,233,237,0) 6px 12px); border:1px dashed rgba(233,233,237,.16); display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px;">
+                  <span style="font-family:ui-monospace,Menlo,monospace; font-size:10px; letter-spacing:.1em; color:#75798c; text-transform:uppercase;">foto jugador</span>
+                </div>
+              </div>
+              <div style="text-align:center; margin-top:9px;">
+                <div style="font-size:17px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:#e9e9ed;">{{ modal.name }}</div>
+                <div style="height:1px; margin:7px 0; background:linear-gradient(to right, transparent, rgba(233,233,237,.22), transparent);"></div>
+              </div>
+              <div style="display:grid; gap:5.6px;">
+                <sc-for list="{{ modal.bars }}" as="b" hint-placeholder-count="6">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:10.5px; color:#9397ab; font-weight:600; letter-spacing:.06em;"><span>{{ b.k }}</span><span style="color:#e9e9ed;">{{ b.v }}</span></div>
+                    <div style="height:4px; border-radius:999px; background:rgba(233,233,237,.10); overflow:hidden; margin-top:3px;">
+                      <div style="height:100%; width:{{ b.v }}%; border-radius:999px; background:linear-gradient(90deg,#2fa26a,{{ modal.ink }}); transform-origin:left; animation:grow .7s cubic-bezier(.2,.7,.3,1) both;"></div>
+                    </div>
+                  </div>
+                </sc-for>
+                <div style="font-size:11.5px; color:#9397ab; margin-top:4px; text-wrap:pretty;">{{ modal.note }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </section>
+
+    <section id="stats" style="position:relative; border-top:1px solid rgba(233,233,237,.10); border-bottom:1px solid rgba(233,233,237,.10); background:linear-gradient(120deg,#12321f,#161826 55%,#2a1a14);">
+      <div style="max-width:1240px; margin:0 auto; padding:56px 22.4px;">
+        <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:22.4px;">
+          <sc-for list="{{ teamStats }}" as="s" hint-placeholder-count="5">
+            <div>
+              <div style="font-size:clamp(34px,4vw,52px); font-weight:800; letter-spacing:-.04em; line-height:1; color:{{ s.color }};">{{ s.value }}</div>
+              <div style="margin-top:5.6px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#b2b6ca; font-weight:600;">{{ s.label }}</div>
+              <div style="margin-top:2.8px; font-size:12px; color:#75798c;">{{ s.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Cuenta regresiva al debut" style="position:relative; overflow:hidden; border-bottom:1px solid rgba(233,233,237,.10); background:linear-gradient(120deg,#12321f,#161826 58%,#2a1a14);">
+      <div style="max-width:1240px; margin:0 auto; padding:44.8px 22.4px; display:flex; align-items:center; gap:33.6px; flex-wrap:wrap;">
+        <div style="min-width:230px; flex:1;">
+          <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#e04b2a; font-weight:700;">{{ countdownKicker }}</h6>
+          <h3 style="margin:0 0 5.6px; font-size:clamp(22px,2.6vw,30px); font-weight:600; letter-spacing:-.025em;">{{ countdownTitle }}</h3>
+          <p style="margin:0; font-size:13.5px; color:#9397ab; max-width:42ch;">{{ countdownSub }}</p>
+        </div>
+        <div style="display:flex; gap:11.2px; flex-wrap:wrap;">
+          <sc-for list="{{ countdown }}" as="c" hint-placeholder-count="4">
+            <div style="min-width:82px; padding:14px 16.8px; border-radius:8px; background:rgba(22,24,38,.55); box-shadow:0 0 0 1px #3f424d; text-align:center;">
+              <div style="font-size:34px; line-height:1; font-weight:800; letter-spacing:-.04em; color:{{ c.ink }}; font-variant-numeric:tabular-nums;">{{ c.value }}</div>
+              <div style="margin-top:5.6px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#75798c; font-weight:700;">{{ c.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative; height:34px;">
+        <div style="position:absolute; left:0; right:0; bottom:16px; height:1px; background:linear-gradient(to right, transparent, rgba(47,162,106,.45) 12%, rgba(47,162,106,.45) 88%, transparent);"></div>
+        <img src="assets/balon-v3.png" alt="" style="position:absolute; bottom:12px; width:26px; height:26px; animation:rollAcross 9s linear infinite;">
+      </div>
+    </section>
+
+    <section id="tactica" style="max-width:1240px; margin:0 auto; padding:78px 22.4px;">
+      <div data-reveal>
+        <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2fa26a; font-weight:700;">Pizarra táctica</h6>
+        <h2 style="margin:0 0 5.6px; font-size:clamp(30px,3.6vw,44px); line-height:1.05; letter-spacing:-.03em; font-weight:600;">Arma la alineación</h2>
+        <p style="margin:0 0 22.4px; font-size:14px; color:#9397ab; max-width:60ch;">En computador: arrastra un jugador de la lista a la cancha. En celular: toca al jugador y luego la posición. Toca a un jugador ya ubicado para sacarlo.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:22.4px; align-items:start;">
+        <div>
+          <div style="display:flex; gap:5.6px; flex-wrap:wrap; margin-bottom:16.8px;">
+            <sc-for list="{{ formationTabs }}" as="f" hint-placeholder-count="6">
+              <button type="button" onClick="{{ f.onClick }}" style="cursor:pointer; font-family:inherit; padding:8px 15px; border-radius:8px; font-size:13px; font-weight:700; letter-spacing:.06em; background:{{ f.bg }}; color:{{ f.fg }}; border:1px solid {{ f.bd }};" style-hover="border-color:#2fa26a;">{{ f.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="position:relative; border-radius:14px; overflow:hidden; box-shadow:0 0 0 1px #3f424d, 0 16px 40px rgba(0,0,0,.55); background:linear-gradient(180deg,#123a24,#0e2b1b);">
+            <div style="position:absolute; inset:0; background-image:repeating-linear-gradient(180deg, rgba(255,255,255,.035) 0 40px, rgba(255,255,255,0) 40px 80px);"></div>
+            <div style="position:absolute; inset:14px; border:2px solid rgba(255,255,255,.16); border-radius:6px;"></div>
+            <div style="position:absolute; left:14px; right:14px; top:50%; height:2px; background:rgba(255,255,255,.16);"></div>
+            <div style="position:absolute; left:50%; top:50%; width:88px; height:88px; margin:-44px 0 0 -44px; border:2px solid rgba(255,255,255,.16); border-radius:50%;"></div>
+            <div style="position:absolute; left:50%; bottom:14px; width:180px; height:62px; margin-left:-90px; border:2px solid rgba(255,255,255,.16); border-bottom:0; border-radius:6px 6px 0 0;"></div>
+            <div style="position:absolute; left:50%; top:14px; width:180px; height:62px; margin-left:-90px; border:2px solid rgba(255,255,255,.16); border-top:0; border-radius:0 0 6px 6px;"></div>
+            <div style="width:100%; aspect-ratio:0.82;"></div>
+
+            <sc-for list="{{ slots }}" as="s" hint-placeholder-count="8">
+              <button type="button" onClick="{{ s.onClick }}" onDragOver="{{ s.onDragOver }}" onDrop="{{ s.onDrop }}" style="position:absolute; left:{{ s.x }}%; top:{{ s.y }}%; transform:translate(-50%,-50%); cursor:pointer; font-family:inherit; display:flex; flex-direction:column; align-items:center; gap:5px; background:transparent; border:0; padding:0; transition:transform .25s;" style-hover="transform:translate(-50%,-50%) scale(1.1);">
+                <div style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:{{ s.chipInk }}; background:{{ s.chipBg }}; border:2px solid {{ s.chipBd }}; box-shadow:{{ s.chipShadow }};">{{ s.chip }}</div>
+                <div style="font-size:10.5px; font-weight:700; letter-spacing:.06em; color:#e9e9ed; text-shadow:0 1px 3px rgba(0,0,0,.8); white-space:nowrap; max-width:104px; overflow:hidden; text-overflow:ellipsis;">{{ s.caption }}</div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="border-radius:14px; background:rgba(35,37,50,.75); box-shadow:0 0 0 1px #3f424d; padding:16.8px; max-width:460px; width:100%;">
+          <div style="display:flex; align-items:baseline; gap:9px;">
+            <div style="font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#e3b23c; font-weight:700;">Plantilla</div>
+            <div style="flex:1;"></div>
+            <div style="font-size:11px; color:#9397ab;">{{ panelTitle }}</div>
+          </div>
+          <div style="height:1px; margin:11.2px 0; background:linear-gradient(to right, transparent, rgba(233,233,237,.22), transparent);"></div>
+          <div style="max-height:440px; overflow:auto; display:grid; gap:2.8px;">
+            <sc-for list="{{ pickList }}" as="p" hint-placeholder-count="16">
+              <button type="button" draggable="{{ true }}" onDragStart="{{ p.onDragStart }}" onDragEnd="{{ p.onDragEnd }}" onClick="{{ p.onClick }}" style="cursor:grab; font-family:inherit; text-align:left; display:flex; align-items:center; gap:9px; padding:7px 9px; border-radius:8px; border:1px solid {{ p.bd }}; background:{{ p.bg }}; color:#e9e9ed; opacity:{{ p.opacity }}; transition:border-color .2s, background .2s;" style-hover="border-color:#2fa26a; background:rgba(47,162,106,.12);">
+                <span style="width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; background:{{ p.chipBg }}; color:{{ p.chipInk }};">{{ p.numLabel }}</span>
+                <span style="flex:1; font-size:12.5px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ p.name }}</span>
+                <span style="font-size:10px; font-weight:700; letter-spacing:.08em; color:{{ p.stateInk }};">{{ p.stateLabel }}</span>
+                <span style="font-size:10.5px; font-weight:700; letter-spacing:.08em; color:#75798c;">{{ p.pos }}</span>
+                <span style="font-size:12px; font-weight:800; color:{{ p.ink }};">{{ p.ovr }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:flex; gap:5.6px; margin-top:14px;">
+            <button type="button" onClick="{{ autoFill }}" style="flex:1; cursor:pointer; font-family:inherit; padding:9px; border-radius:8px; border:1px solid #2fa26a; background:transparent; color:#7ee0a8; font-size:12px; font-weight:700; letter-spacing:.06em;" style-hover="background:rgba(47,162,106,.16);">AUTO XI</button>
+            <button type="button" onClick="{{ clearAll }}" style="flex:1; cursor:pointer; font-family:inherit; padding:9px; border-radius:8px; border:1px solid rgba(233,233,237,.22); background:transparent; color:#b2b6ca; font-size:12px; font-weight:700; letter-spacing:.06em;" style-hover="border-color:#e04b2a; color:#e04b2a;">LIMPIAR</button>
+          </div>
+          <div style="margin-top:9px; padding:9px 11.2px; border-radius:8px; background:rgba(22,24,38,.6); font-size:11.5px; color:#9397ab; font-family:ui-monospace,Menlo,monospace; line-height:1.5;">{{ lineupText }}</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tabla" style="max-width:1240px; margin:0 auto; padding:22.4px 22.4px 78px;">
+      <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:22.4px; align-items:start;">
+        <div>
+          <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2fa26a; font-weight:700;">Tabla de posiciones</h6>
+          <h2 style="margin:0 0 5.6px; font-size:clamp(28px,3.2vw,38px); line-height:1.05; letter-spacing:-.03em; font-weight:600;">Grupo por definir</h2>
+          <p style="margin:0 0 16.8px; font-size:13.5px; color:#75798c;">Torneo Fansport · el sorteo de grupos aún no sale. La tabla se llena con el primer pitazo.</p>
+          <div style="border-radius:14px; overflow-x:auto; box-shadow:0 0 0 1px #3f424d; background:rgba(35,37,50,.6);">
+            <div style="display:grid; min-width:430px; grid-template-columns:34px minmax(0,1fr) repeat(6,38px); gap:0; padding:9px 14px; background:rgba(22,24,38,.7); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#75798c; font-weight:700;">
+              <div>#</div><div>Equipo</div><div style="text-align:center;">PJ</div><div style="text-align:center;">G</div><div style="text-align:center;">E</div><div style="text-align:center;">P</div><div style="text-align:center;">DG</div><div style="text-align:center;">PTS</div>
+            </div>
+            <sc-for list="{{ standings }}" as="r" hint-placeholder-count="6">
+              <div style="display:grid; min-width:430px; grid-template-columns:34px minmax(0,1fr) repeat(6,38px); align-items:center; padding:11px 14px; border-top:1px solid rgba(233,233,237,.08); background:{{ r.bg }};">
+                <div style="font-size:12.5px; font-weight:700; color:{{ r.ink }};">{{ r.pos }}</div>
+                <div style="font-size:13.5px; font-weight:{{ r.weight }}; color:{{ r.ink }}; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ r.team }}</div>
+                <div style="text-align:center; font-size:12.5px; color:#9397ab;">{{ r.pj }}</div>
+                <div style="text-align:center; font-size:12.5px; color:#9397ab;">{{ r.g }}</div>
+                <div style="text-align:center; font-size:12.5px; color:#9397ab;">{{ r.e }}</div>
+                <div style="text-align:center; font-size:12.5px; color:#9397ab;">{{ r.p }}</div>
+                <div style="text-align:center; font-size:12.5px; color:#9397ab;">{{ r.dg }}</div>
+                <div style="text-align:center; font-size:13px; font-weight:800; color:{{ r.ink }};">{{ r.pts }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:16.8px;">
+          <div style="border-radius:14px; padding:16.8px; background:linear-gradient(150deg, rgba(47,162,106,.16), rgba(35,37,50,.8) 60%); box-shadow:0 0 0 1px #3f424d;">
+            <div style="display:flex; align-items:center; gap:7px; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#7ee0a8; font-weight:700;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#2fa26a; animation:pulse 1.6s ease-in-out infinite;"></span>Próximo partido
+            </div>
+            <div style="margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:11.2px;">
+              <div style="text-align:center; flex:1;">
+                <div style="width:44px; height:44px; margin:0 auto 7px;"><img src="assets/escudo.png" alt="" style="width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 3px 8px rgba(0,0,0,.65));"></div>
+                <div style="font-size:11.5px; font-weight:700;">FURIA</div>
+              </div>
+              <div style="font-size:22px; font-weight:800; color:#75798c; letter-spacing:-.02em;">VS</div>
+              <div style="text-align:center; flex:1;">
+                <div style="width:44px; height:44px; margin:0 auto 7px; border-radius:8px; border:1px dashed rgba(233,233,237,.22); display:flex; align-items:center; justify-content:center; color:#75798c; font-size:16px;">?</div>
+                <div style="font-size:11.5px; font-weight:700; color:#9397ab;">RIVAL</div>
+              </div>
+            </div>
+            <div style="height:1px; margin:14px 0; background:linear-gradient(to right, transparent, rgba(233,233,237,.22), transparent);"></div>
+            <div style="display:grid; gap:5.6px; font-size:12.5px; color:#9397ab;">
+              <div style="display:flex; justify-content:space-between;"><span>Tipo</span><span style="color:#e9e9ed; font-weight:600;">Amistoso</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>Cuándo</span><span style="color:#e9e9ed; font-weight:600;">Este fin de semana</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>Dónde</span><span style="color:#e9e9ed; font-weight:600;">Bogotá · por confirmar</span></div>
+            </div>
+          </div>
+
+          <div style="border-radius:14px; padding:16.8px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d;">
+            <div style="font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#75798c; font-weight:700; margin-bottom:11.2px;">Calendario</div>
+            <sc-for list="{{ fixtures }}" as="f" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:11.2px; padding:9px 0; border-top:1px solid rgba(233,233,237,.08);">
+                <div style="width:42px; text-align:center;">
+                  <div style="font-size:16px; font-weight:800; line-height:1; color:{{ f.ink }};">{{ f.day }}</div>
+                  <div style="font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:#75798c; font-weight:700;">{{ f.month }}</div>
+                </div>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:12.5px; font-weight:600; color:#e9e9ed; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ f.title }}</div>
+                  <div style="font-size:11px; color:#75798c;">{{ f.meta }}</div>
+                </div>
+                <div style="font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:{{ f.ink }}; border:1px solid {{ f.ink }}; padding:2px 7px; border-radius:999px;">{{ f.tag }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="matchday" style="max-width:1240px; margin:0 auto; padding:22.4px 22.4px 78px;">
+      <div data-reveal style="display:flex; align-items:flex-end; gap:22.4px; flex-wrap:wrap; margin-bottom:22.4px;">
+        <div>
+          <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#e3b23c; font-weight:700;">Matchday</h6>
+          <h2 style="margin:0; font-size:clamp(30px,3.6vw,44px); line-height:1.05; letter-spacing:-.03em; font-weight:600;">Lo que pasó en la cancha</h2>
+        </div>
+        <div style="flex:1;"></div>
+        <a href="https://www.tiktok.com/@furia_tamalera_fc" target="_blank" rel="noopener" style="padding:9px 16.8px; border-radius:8px; border:1px solid rgba(227,178,60,.5); color:#e3b23c; font-size:12.5px; font-weight:700; letter-spacing:.05em;" style-hover="background:rgba(227,178,60,.12);">Ver todo en TikTok</a>
+      </div>
+      <div style="position:relative;">
+        <div ref="{{ railRef }}" onMouseEnter="{{ railHold }}" onMouseLeave="{{ railRelease }}" onPointerDown="{{ railHold }}" onTouchStart="{{ railHold }}" onTouchEnd="{{ railRelease }}" style="display:flex; align-items:center; gap:18px; overflow-x:auto; scrollbar-width:none; padding:34px 4px 44px; min-height:400px;">
+          <sc-for list="{{ mediaLoop }}" as="m" hint-placeholder-count="6">
+            <div style="position:relative; flex:0 0 auto; width:{{ m.w }}px; height:{{ m.h }}px; margin-top:{{ m.offset }}px; transform:rotate({{ m.tilt }}deg); border-radius:14px; overflow:hidden; background-image:repeating-linear-gradient(135deg, rgba(233,233,237,.06) 0 8px, rgba(233,233,237,0) 8px 16px); background-color:rgba(27,29,43,.45); box-shadow:inset 0 0 0 1px rgba(233,233,237,.07); display:flex; align-items:flex-end; padding:14px; transition:transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s, background-color .35s;" style-hover="transform:rotate(0deg) translateY(-8px) scale(1.03); background-color:rgba(27,29,43,.75); box-shadow:inset 0 0 0 1px rgba(47,162,106,.45);">
+              <div style="position:absolute; top:14px; left:14px; font-size:9.5px; font-family:ui-monospace,Menlo,monospace; letter-spacing:.1em; text-transform:uppercase; color:#75798c;">{{ m.slot }}</div>
+              <div style="position:absolute; top:12px; right:14px; font-size:26px; font-weight:800; letter-spacing:-.04em; color:rgba(233,233,237,.10);">{{ m.n }}</div>
+              <div style="position:relative;">
+                <div style="font-size:13.5px; font-weight:700; color:#e9e9ed;">{{ m.title }}</div>
+                <div style="font-size:11.5px; color:#9397ab;">{{ m.meta }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="position:relative; z-index:2; display:flex; gap:9px; justify-content:flex-end;">
+          <button type="button" onClick="{{ railPrev }}" aria-label="Anterior" style="cursor:pointer; font-family:inherit; width:40px; height:40px; border-radius:8px; border:1px solid rgba(233,233,237,.2); background:rgba(35,37,50,.8); color:#b2b6ca; font-size:16px; line-height:1;" style-hover="border-color:#2fa26a; color:#7ee0a8;">←</button>
+          <button type="button" onClick="{{ railNext }}" aria-label="Siguiente" style="cursor:pointer; font-family:inherit; width:40px; height:40px; border-radius:8px; border:1px solid rgba(233,233,237,.2); background:rgba(35,37,50,.8); color:#b2b6ca; font-size:16px; line-height:1;" style-hover="border-color:#2fa26a; color:#7ee0a8;">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="novedades" style="max-width:1240px; margin:0 auto; padding:22.4px 22.4px 78px;">
+      <div data-reveal>
+        <h6 style="margin:0 0 8.4px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#2fa26a; font-weight:700;">Novedades</h6>
+        <h2 style="margin:0 0 22.4px; font-size:clamp(30px,3.6vw,44px); line-height:1.05; letter-spacing:-.03em; font-weight:600;">El parte del vestuario</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16.8px;">
+        <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
+          <article data-reveal style="padding:22.4px; border-radius:14px; background:rgba(35,37,50,.7); box-shadow:0 0 0 1px #3f424d; display:flex; flex-direction:column; gap:9px; transition:transform .3s, box-shadow .3s;" style-hover="transform:translateY(-5px); box-shadow:0 0 0 1px #595d6c, 0 18px 40px rgba(0,0,0,.55);">
+            <div style="display:flex; align-items:center; gap:9px;">
+              <span style="font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:{{ n.ink }}; border:1px solid {{ n.ink }}; padding:2px 8px; border-radius:999px;">{{ n.tag }}</span>
+              <span style="font-size:11px; color:#75798c;">{{ n.date }}</span>
+            </div>
+            <h4 style="margin:0; font-size:19px; font-weight:600; letter-spacing:-.015em; line-height:1.2;">{{ n.title }}</h4>
+            <p style="margin:0; font-size:13.5px; color:#9397ab; text-wrap:pretty;">{{ n.body }}</p>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="patrocinio" style="position:relative; border-top:1px solid rgba(233,233,237,.10); background:linear-gradient(140deg,#13251c,#161826 50%,#2a1c12);">
+      <div style="max-width:1240px; margin:0 auto; padding:78px 22.4px;">
+        <div data-reveal style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:44.8px; align-items:start;">
+          <div>
+            <h6 style="margin:0 0 11.2px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#e3b23c; font-weight:700;">Patrocinio</h6>
+            <h2 style="margin:0 0 14px; font-size:clamp(30px,3.8vw,46px); line-height:1.03; letter-spacing:-.03em; font-weight:600; text-wrap:balance;">Tu marca, en el pecho de un equipo que la gente quiere ver.</h2>
+            <p style="margin:0 0 22.4px; font-size:15.5px; color:#b2b6ca; text-wrap:pretty;">Un torneo de ~60 equipos, contenido semanal en TikTok y un parche que se toma en serio la producción. Buscamos aliados para la temporada 2026.</p>
+            <a href="https://www.tiktok.com/@furia_tamalera_fc" target="_blank" rel="noopener" style="display:inline-block; padding:12px 22px; border-radius:8px; border:1px solid #2fa26a; color:#7ee0a8; font-weight:700; font-size:14px; letter-spacing:.04em;" style-hover="background:rgba(47,162,106,.16); color:#c9f5dc;">Hablemos por TikTok</a>
+          </div>
+          <div style="display:grid; gap:14px;">
+            <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+              <div data-reveal style="padding:22.4px; border-radius:14px; background:rgba(22,24,38,.6); box-shadow:0 0 0 1px #3f424d; border-left:3px solid {{ t.ink }}; transition:transform .3s;" style-hover="transform:translateX(6px);">
+                <div style="display:flex; align-items:baseline; justify-content:space-between; gap:11.2px; flex-wrap:wrap;">
+                  <div style="font-size:18px; font-weight:700; color:{{ t.ink }}; letter-spacing:-.01em;">{{ t.name }}</div>
+                  <div style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#75798c; font-weight:700;">{{ t.slots }}</div>
+                </div>
+                <div style="height:1px; margin:11.2px 0; background:linear-gradient(to right, transparent, rgba(233,233,237,.2), transparent);"></div>
+                <div style="display:grid; gap:5.6px;">
+                  <sc-for list="{{ t.perks }}" as="perk" hint-placeholder-count="3">
+                    <div style="display:flex; gap:9px; align-items:flex-start; font-size:13.5px; color:#cfd3e5;">
+                      <span style="color:{{ t.ink }}; font-size:11px; line-height:1.5;">◆</span><span>{{ perk }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="border-top:1px solid rgba(233,233,237,.10); background:rgba(22,24,38,.9);">
+      <div style="max-width:1240px; margin:0 auto; padding:44.8px 22.4px; display:flex; gap:22.4px; align-items:center; flex-wrap:wrap;">
+        <img src="assets/escudo.png" alt="Escudo Furia Tamalera FC" style="width:52px; height:52px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,.65));">
+        <div>
+          <div style="font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:13px;">Furia Tamalera FC</div>
+          <div style="font-size:12px; color:#75798c;">Est. 2026 · Bogotá, Colombia · Torneo Fansport</div>
+        </div>
+        <div style="flex:1;"></div>
+        <a href="https://www.tiktok.com/@furia_tamalera_fc" target="_blank" rel="noopener" style="padding:9px 16.8px; border-radius:8px; border:1px solid rgba(233,233,237,.2); color:#b2b6ca; font-size:12.5px; font-weight:600;" style-hover="border-color:#e3b23c; color:#e3b23c;">TikTok · @furia_tamalera_fc</a>
+      </div>
+    </footer>
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;ballCount&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 5, &quot;min&quot;: 0, &quot;max&quot;: 8, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Balones de fondo&quot; },
+  &quot;ballOpacity&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.1, &quot;min&quot;: 0, &quot;max&quot;: 0.35, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Balones de fondo&quot; },
+  &quot;ballSpeed&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 1, &quot;min&quot;: 0.3, &quot;max&quot;: 3, &quot;step&quot;: 0.1, &quot;unit&quot;: &quot;x&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Balones de fondo&quot; },
+  &quot;embers&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 9, &quot;min&quot;: 0, &quot;max&quot;: 18, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Fondo&quot; }
+}">
+const GREEN = '#2fa26a', GOLD = '#e3b23c', RED = '#e04b2a';
+
+const RAW = [
+  { name: 'Juan Reyes', num: 11, pos: 'MED', pac: 63, sho: 70, pas: 85, dri: 69, def: 75, phy: 75, note: 'El metrónomo. Reparte, corre y no pierde la calma cuando el partido se rompe.' },
+  { name: 'Por definir', num: 1, pos: 'POR', pac: 55, sho: 30, pas: 55, dri: 45, def: 72, phy: 74, note: 'Guante titular. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 12, pos: 'POR', pac: 57, sho: 32, pas: 52, dri: 46, def: 68, phy: 70, note: 'Segundo arquero. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 2, pos: 'DEF', pac: 68, sho: 45, pas: 62, dri: 55, def: 78, phy: 76, note: 'Lateral con recorrido. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 3, pos: 'DEF', pac: 62, sho: 42, pas: 60, dri: 52, def: 80, phy: 79, note: 'Central de marca. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 4, pos: 'DEF', pac: 60, sho: 48, pas: 68, dri: 58, def: 77, phy: 74, note: 'Central que saca la pelota jugando.' },
+  { name: 'Por definir', num: 5, pos: 'DEF', pac: 71, sho: 50, pas: 64, dri: 62, def: 73, phy: 70, note: 'Carrilero. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 6, pos: 'DEF', pac: 58, sho: 40, pas: 58, dri: 50, def: 74, phy: 78, note: 'Relevo defensivo. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 8, pos: 'MED', pac: 72, sho: 68, pas: 74, dri: 76, def: 62, phy: 68, note: 'Interior de llegada. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 14, pos: 'MED', pac: 66, sho: 60, pas: 78, dri: 70, def: 70, phy: 66, note: 'Pivote. Ordena y filtra.' },
+  { name: 'Por definir', num: 16, pos: 'MED', pac: 80, sho: 66, pas: 70, dri: 82, def: 55, phy: 60, note: 'Joya del parche: desequilibra en corto y en velocidad.' },
+  { name: 'Por definir', num: 17, pos: 'MED', pac: 74, sho: 62, pas: 69, dri: 73, def: 64, phy: 65, note: 'Extremo reconvertido. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 20, pos: 'MED', pac: 64, sho: 58, pas: 66, dri: 63, def: 66, phy: 72, note: 'Motor de recambio. Datos pendientes de confirmar.' },
+  { name: 'Por definir', num: 7, pos: 'DEL', pac: 84, sho: 78, pas: 62, dri: 80, def: 40, phy: 62, note: 'Joya del parche: pura pólvora al espacio.' },
+  { name: 'Por definir', num: 9, pos: 'DEL', pac: 70, sho: 80, pas: 58, dri: 68, def: 38, phy: 76, note: 'Nueve de área. Vive del rebote y del centro.' },
+  { name: 'Por definir', num: 10, pos: 'DEL', pac: 76, sho: 74, pas: 72, dri: 79, def: 44, phy: 60, note: 'Enganche. Último pase y disparo de media distancia.' }
+];
+
+function ovrOf(p) {
+  if (p.pos === 'POR') return Math.round((p.def * 2 + p.phy * 2 + p.pas + p.pac) / 7);
+  return Math.round((p.pac + p.sho + p.pas + p.dri + p.def + p.phy) / 6);
+}
+
+const FORMATIONS = {
+  '3-3-1': [['POR',50,90],['DEF',20,70],['DEF',50,73],['DEF',80,70],['MED',20,45],['MED',50,46],['MED',80,45],['DEL',50,17]],
+  '3-1-3': [['POR',50,90],['DEF',20,70],['DEF',50,73],['DEF',80,70],['MED',50,48],['DEL',20,22],['DEL',50,16],['DEL',80,22]],
+  '2-3-2': [['POR',50,90],['DEF',32,72],['DEF',68,72],['MED',18,48],['MED',50,50],['MED',82,48],['DEL',35,19],['DEL',65,19]],
+  '3-2-2': [['POR',50,90],['DEF',20,70],['DEF',50,73],['DEF',80,70],['MED',33,46],['MED',67,46],['DEL',35,19],['DEL',65,19]],
+  '2-4-1': [['POR',50,90],['DEF',32,72],['DEF',68,72],['MED',15,50],['MED',38,52],['MED',62,52],['MED',85,50],['DEL',50,17]],
+  '1-3-2-1': [['POR',50,90],['DEF',50,74],['MED',18,56],['MED',50,54],['MED',82,56],['DEL',30,28],['DEL',70,28],['DEL',50,13]]
+};
+
+class Component extends DCLogic {
+  state = { filter: 'TODOS', flipped: {}, formation: '3-3-1', assign: {}, activeSlot: null, view: 'lista', modalId: null, selected: null, dragging: null };
+
+  railRef = React.createRef();
+  _pos = 0;
+  _target = null;
+  _last = 0;
+  _speed = 34; // px per second
+
+  scrollRail(dir) {
+    const el = this.railRef.current;
+    if (!el) return;
+    const base = this._target === null ? this._pos : this._target;
+    this._target = base + dir * Math.max(260, el.clientWidth * 0.62);
+  }
+
+  componentDidMount() {
+    this._t = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    const step = (ts) => {
+      this._raf = requestAnimationFrame(step);
+      const el = this.railRef.current;
+      if (!el) return;
+      const dt = this._last ? Math.min(64, ts - this._last) : 16;
+      this._last = ts;
+      const kids = el.children;
+      const n = kids.length / 2;
+      const half = n >= 1 && kids[n] ? kids[n].offsetLeft - kids[0].offsetLeft : el.scrollWidth / 2;
+      if (half < 2) return;
+      if (Math.abs(el.scrollLeft - this._pos) > 3 && this._target === null) this._pos = el.scrollLeft;
+      if (this._target !== null) {
+        this._pos += (this._target - this._pos) * Math.min(1, dt / 190);
+        if (Math.abs(this._target - this._pos) < 0.6) { this._pos = this._target; this._target = null; }
+      } else if (!this._paused) {
+        this._pos += this._speed * dt / 1000;
+      } else { return; }
+      while (this._pos >= half) { this._pos -= half; if (this._target !== null) this._target -= half; }
+      while (this._pos < 0) { this._pos += half; if (this._target !== null) this._target += half; }
+      el.scrollLeft = this._pos;
+    };
+    this._raf = requestAnimationFrame(step);
+  }
+  componentWillUnmount() { clearInterval(this._t); cancelAnimationFrame(this._raf); }
+
+  nextKickoff() {
+    const d = new Date();
+    d.setHours(15, 0, 0, 0);
+    const days = (6 - d.getDay() + 7) % 7 || 7;
+    d.setDate(d.getDate() + days);
+    return d;
+  }
+
+  tierOf(o) {
+    if (o >= 76) return { label: 'Oro', ink: GOLD, a: 'rgba(227,178,60,.30)', b: 'rgba(224,75,42,.18)', edge: 'rgba(227,178,60,.45)' };
+    if (o >= 68) return { label: 'Plata', ink: '#cfd3e5', a: 'rgba(207,211,229,.16)', b: 'rgba(47,162,106,.14)', edge: '#595d6c' };
+    return { label: 'Bronce', ink: '#7ee0a8', a: 'rgba(47,162,106,.20)', b: 'rgba(22,24,38,.4)', edge: 'rgba(47,162,106,.32)' };
+  }
+
+  players() {
+    return RAW.map((p, i) => Object.assign({}, p, { i, ovr: ovrOf(p) }));
+  }
+
+  renderVals() {
+    const { filter, flipped, formation, assign, activeSlot, view, modalId, selected } = this.state;
+    const all = this.players();
+    const cardOf = (p) => {
+      const t = this.tierOf(p.ovr);
+      return {
+        name: p.name, pos: p.pos, ovr: p.ovr, numLabel: '#' + p.num, note: p.note,
+        tintA: t.a, tintB: t.b, edge: t.edge, ink: t.ink,
+        bars: [{ k: 'RITMO', v: p.pac }, { k: 'TIRO', v: p.sho }, { k: 'PASE', v: p.pas }, { k: 'REGATE', v: p.dri }, { k: 'DEFENSA', v: p.def }, { k: 'FÍSICO', v: p.phy }]
+      };
+    };
+
+    const embers = [];
+    const emberCount = this.props.embers ?? 9;
+    for (let i = 0; i < emberCount; i++) {
+      embers.push({
+        l: Math.round((i * 37 + 11) % 100),
+        s: 2 + (i % 3),
+        c: [GREEN, GOLD, RED][i % 3],
+        d: 12 + (i % 7) * 2.5,
+        delay: (i * 1.4) % 16
+      });
+    }
+
+    const ballCount = this.props.ballCount ?? 5;
+    const ballSpeed = this.props.ballSpeed ?? 1;
+    const ballOpacity = this.props.ballOpacity ?? 0.1;
+    const balls = [];
+    const SPOTS = [[6, 18, 190], [82, 12, 120], [14, 62, 96], [68, 74, 150], [42, 34, 74], [90, 48, 84], [26, 88, 110], [56, 6, 64]];
+    for (let i = 0; i < Math.min(ballCount, SPOTS.length); i++) {
+      const s = SPOTS[i];
+      balls.push({ l: s[0], t: s[1], size: s[2], opacity: ballOpacity, dur: Math.round((34 + i * 9) / Math.max(ballSpeed, 0.2)), delay: i * 2.5 });
+    }
+
+    const target = this.nextKickoff();
+    let left = Math.max(0, target.getTime() - Date.now());
+    const dd = Math.floor(left / 86400000); left -= dd * 86400000;
+    const hh = Math.floor(left / 3600000); left -= hh * 3600000;
+    const mm = Math.floor(left / 60000); left -= mm * 60000;
+    const ss = Math.floor(left / 1000);
+    const pad = (n) => (n < 10 ? '0' + n : String(n));
+    const countdown = [
+      { value: pad(dd), label: 'Días', ink: GOLD },
+      { value: pad(hh), label: 'Horas', ink: '#e9e9ed' },
+      { value: pad(mm), label: 'Min', ink: '#e9e9ed' },
+      { value: pad(ss), label: 'Seg', ink: GREEN }
+    ];
+    const countdownKicker = 'Cuenta regresiva';
+    const countdownTitle = 'Falta poco para el pitazo';
+    const countdownSub = 'Primero el amistoso de preparación; la semana siguiente arranca el Torneo Fansport. Hora y sede se confirman por TikTok.';
+
+    const cats = ['TODOS', 'POR', 'DEF', 'MED', 'DEL'];
+    const filters = cats.map(c => ({
+      label: c,
+      bg: filter === c ? 'rgba(47,162,106,.16)' : 'transparent',
+      fg: filter === c ? '#7ee0a8' : '#9397ab',
+      bd: filter === c ? GREEN : 'rgba(233,233,237,.18)',
+      onClick: () => this.setState({ filter: c })
+    }));
+
+    const visiblePlayers = all
+      .filter(p => filter === 'TODOS' || p.pos === filter)
+      .map(p => {
+        const t = this.tierOf(p.ovr);
+        const isBack = !!flipped[p.i];
+        return {
+          name: p.name, pos: p.pos, ovr: p.ovr, numLabel: '#' + p.num, note: p.note,
+          pac: p.pac, sho: p.sho, pas: p.pas, dri: p.dri, def: p.def, phy: p.phy,
+          tintA: t.a, tintB: t.b, edge: t.edge, ink: t.ink, tierLabel: t.label + ' · #' + p.num,
+          shine: (p.i % 6) * 0.9,
+          front: !isBack, back: isBack,
+          bars: [{ k: 'RITMO', v: p.pac }, { k: 'TIRO', v: p.sho }, { k: 'PASE', v: p.pas }, { k: 'REGATE', v: p.dri }, { k: 'DEFENSA', v: p.def }, { k: 'FÍSICO', v: p.phy }],
+          onFlip: () => this.setState(s => ({ flipped: Object.assign({}, s.flipped, { [p.i]: !s.flipped[p.i] }) }))
+        };
+      });
+
+    const viewTabs = [['lista', 'Lista'], ['cartas', 'Cartas']].map(([k, label]) => ({
+      label,
+      bg: view === k ? 'rgba(227,178,60,.14)' : 'transparent',
+      fg: view === k ? GOLD : '#9397ab',
+      bd: view === k ? 'rgba(227,178,60,.6)' : 'rgba(233,233,237,.18)',
+      onClick: () => this.setState({ view: k })
+    }));
+
+    const GROUPS = [['POR', 'Porteros', '#7ee0a8'], ['DEF', 'Defensas', GREEN], ['MED', 'Mediocampo', GOLD], ['DEL', 'Delanteros', RED]];
+    const groups = GROUPS
+      .filter(g => filter === 'TODOS' || filter === g[0])
+      .map(g => {
+        const rows = all.filter(p => p.pos === g[0]).sort((a, b) => b.ovr - a.ovr).map(p => {
+          const t = this.tierOf(p.ovr);
+          const top = [['RIT', p.pac], ['TIR', p.sho], ['PAS', p.pas], ['REG', p.dri], ['DEF', p.def], ['FÍS', p.phy]]
+            .sort((a, b) => b[1] - a[1]).slice(0, 2).map(s => s[0] + ' ' + s[1]).join(' · ');
+          return { name: p.name, num: p.num, ovr: p.ovr, ink: t.ink, hint: top, onOpen: () => this.setState({ modalId: p.i }) };
+        });
+        return { label: g[1], ink: g[2], count: rows.length + (rows.length === 1 ? ' jugador' : ' jugadores'), rows };
+      })
+      .filter(g => g.rows.length);
+
+    const modalPlayer = modalId === null ? null : all[modalId];
+    const modal = modalPlayer ? cardOf(modalPlayer) : { bars: [] };
+
+    const avg = Math.round(all.reduce((a, p) => a + p.ovr, 0) / all.length);
+    const best = all.reduce((a, p) => (p.ovr > a.ovr ? p : a), all[0]);
+    const teamStats = [
+      { value: avg, label: 'Media del equipo', sub: 'Provisional', color: GOLD },
+      { value: best.ovr, label: 'Mejor media', sub: '#' + best.num + ' · ' + best.pos, color: GREEN },
+      { value: '16', label: 'Convocables', sub: '8 en cancha, 8 al banco', color: '#e9e9ed' },
+      { value: '6', label: 'Esquemas', sub: 'Listos en la pizarra', color: '#e9e9ed' },
+      { value: '0', label: 'Partidos oficiales', sub: 'Empezamos de cero', color: RED }
+    ];
+
+    const formationTabs = Object.keys(FORMATIONS).map(k => ({
+      label: k,
+      bg: formation === k ? 'rgba(227,178,60,.16)' : 'transparent',
+      fg: formation === k ? GOLD : '#9397ab',
+      bd: formation === k ? GOLD : 'rgba(233,233,237,.18)',
+      onClick: () => this.setState({ formation: k, assign: {}, activeSlot: null })
+    }));
+
+    const def = FORMATIONS[formation];
+    const place = (idx, pid) => this.setState(s => {
+      const next = {};
+      Object.keys(s.assign).forEach(k => { if (s.assign[k] !== pid) next[k] = s.assign[k]; });
+      next[idx] = pid;
+      return { assign: next, activeSlot: null, selected: null, dragging: null };
+    });
+
+    const slots = def.map((s, idx) => {
+      const pid = assign[idx];
+      const p = pid === undefined ? null : all[pid];
+      const armed = selected !== null;
+      const active = activeSlot === idx;
+      return {
+        x: s[1], y: s[2],
+        chip: p ? String(p.num) : s[0].charAt(0),
+        caption: p ? p.name : s[0],
+        chipBg: p ? 'linear-gradient(150deg,#2fa26a,#12321f)' : 'rgba(22,24,38,.75)',
+        chipBd: active || armed ? GOLD : (p ? 'rgba(227,178,60,.6)' : 'rgba(233,233,237,.3)'),
+        chipInk: p ? '#e9e9ed' : '#9397ab',
+        chipShadow: armed ? '0 0 0 4px rgba(227,178,60,.18), 0 6px 18px rgba(0,0,0,.5)' : '0 6px 18px rgba(0,0,0,.5)',
+        onDragOver: (ev) => { ev.preventDefault(); },
+        onDrop: (ev) => {
+          ev.preventDefault();
+          const raw = ev.dataTransfer ? ev.dataTransfer.getData('text/plain') : '';
+          const id = raw === '' ? this.state.dragging : parseInt(raw, 10);
+          if (id !== null && !isNaN(id)) place(idx, id);
+        },
+        onClick: () => {
+          if (selected !== null) { place(idx, selected); return; }
+          if (p) { this.setState(st => { const n = Object.assign({}, st.assign); delete n[idx]; return { assign: n, activeSlot: null }; }); return; }
+          this.setState({ activeSlot: active ? null : idx });
+        }
+      };
+    });
+
+    const used = Object.values(assign);
+    const slotOf = (pid) => { const k = Object.keys(assign).find(k2 => assign[k2] === pid); return k === undefined ? null : parseInt(k, 10); };
+    const panelTitle = selected !== null
+      ? 'Ahora toca una posición'
+      : (activeSlot === null ? 'Arrastra o toca un jugador' : 'Elige quién va en ' + def[activeSlot][0]);
+
+    const pickList = all.map(p => {
+      const t = this.tierOf(p.ovr);
+      const inSlot = slotOf(p.i);
+      const taken = inSlot !== null;
+      const isSel = selected === p.i;
+      return {
+        name: p.name, pos: p.pos, ovr: p.ovr, numLabel: p.num, ink: t.ink,
+        opacity: taken ? 0.55 : 1,
+        stateLabel: taken ? 'EN CANCHA' : (isSel ? 'ELEGIDO' : ''),
+        stateInk: taken ? GREEN : GOLD,
+        chipBg: taken ? 'rgba(47,162,106,.22)' : 'rgba(233,233,237,.08)',
+        chipInk: taken ? '#7ee0a8' : '#b2b6ca',
+        bg: isSel ? 'rgba(227,178,60,.14)' : (taken ? 'rgba(47,162,106,.06)' : 'transparent'),
+        bd: isSel ? GOLD : (taken ? 'rgba(47,162,106,.28)' : 'rgba(233,233,237,.14)'),
+        onDragStart: (ev) => { if (ev.dataTransfer) { ev.dataTransfer.setData('text/plain', String(p.i)); ev.dataTransfer.effectAllowed = 'move'; } this.setState({ dragging: p.i }); },
+        onDragEnd: () => this.setState({ dragging: null }),
+        onClick: () => {
+          if (activeSlot !== null) { place(activeSlot, p.i); return; }
+          if (taken) { this.setState(st => { const n = Object.assign({}, st.assign); delete n[inSlot]; return { assign: n, selected: null }; }); return; }
+          this.setState({ selected: isSel ? null : p.i });
+        }
+      };
+    });
+
+    const autoFill = () => {
+      const order = { POR: ['POR'], DEF: ['DEF', 'MED'], MED: ['MED', 'DEF', 'DEL'], DEL: ['DEL', 'MED'] };
+      const taken = {}; const next = {};
+      def.forEach((s, idx) => {
+        const prefs = order[s[0]];
+        let pick = null;
+        for (let r = 0; r < prefs.length && !pick; r++) {
+          const pool = all.filter(p => p.pos === prefs[r] && !taken[p.i]).sort((a, b) => b.ovr - a.ovr);
+          if (pool.length) pick = pool[0];
+        }
+        if (pick) { taken[pick.i] = true; next[idx] = pick.i; }
+      });
+      this.setState({ assign: next, activeSlot: null, selected: null });
+    };
+
+    const named = def.map((s, idx) => (assign[idx] === undefined ? '—' : all[assign[idx]].num + ' ' + all[assign[idx]].name));
+    const lineupText = formation + ' · ' + named.join(' / ');
+
+    const standings = [
+      { pos: 1, team: 'Furia Tamalera FC', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: GOLD, weight: 700, bg: 'rgba(227,178,60,.07)' },
+      { pos: 2, team: 'Rival por sortear', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: '#75798c', weight: 500, bg: 'transparent' },
+      { pos: 3, team: 'Rival por sortear', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: '#75798c', weight: 500, bg: 'transparent' },
+      { pos: 4, team: 'Rival por sortear', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: '#75798c', weight: 500, bg: 'transparent' },
+      { pos: 5, team: 'Rival por sortear', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: '#75798c', weight: 500, bg: 'transparent' },
+      { pos: 6, team: 'Rival por sortear', pj: 0, g: 0, e: 0, p: 0, dg: 0, pts: 0, ink: '#75798c', weight: 500, bg: 'transparent' }
+    ];
+
+    const fixtures = [
+      { day: '—', month: 'Sep', title: 'Amistoso de preparación', meta: 'Rival y sede por confirmar', tag: 'Amistoso', ink: GREEN },
+      { day: '—', month: 'Sep', title: 'Fecha 1 · Torneo Fansport', meta: 'A la espera del sorteo de grupos', tag: 'Oficial', ink: GOLD },
+      { day: '—', month: 'Sep', title: 'Fecha 2 · Torneo Fansport', meta: 'Calendario por publicar', tag: 'Oficial', ink: '#75798c' }
+    ];
+
+    const media = [
+      { slot: 'video 9:16', title: 'Resumen del amistoso', meta: 'Suelta aquí el clip vertical', w: 200, h: 340, offset: 0, tilt: -1.6 },
+      { slot: 'foto horizontal', title: 'Once inicial', meta: 'Foto de equipo antes del pitazo', w: 360, h: 230, offset: 46, tilt: 1.2 },
+      { slot: 'foto', title: 'Golazo de la fecha', meta: 'Captura del momento', w: 250, h: 280, offset: -14, tilt: -0.8 },
+      { slot: 'video 9:16', title: 'Reacciones', meta: 'Clip para TikTok', w: 190, h: 320, offset: 24, tilt: 2 },
+      { slot: 'foto', title: 'Camerino', meta: 'Antes de salir', w: 230, h: 230, offset: -8, tilt: -1.4 },
+      { slot: 'foto horizontal', title: 'La hinchada', meta: 'El parche en la tribuna', w: 380, h: 260, offset: 38, tilt: 0.9 }
+    ].map((m, i) => Object.assign({ n: (i + 1) < 10 ? '0' + (i + 1) : String(i + 1) }, m));
+
+    const news = [
+      { tag: 'Plantilla', date: 'Sep 2026', title: 'Cerramos el grupo en 16', body: 'Ya está la lista completa para el torneo. Faltan las medias definitivas: se ajustan tras los primeros partidos.', ink: GREEN },
+      { tag: 'Torneo', date: 'Sep 2026', title: 'Entramos al Torneo Fansport', body: 'Cerca de 60 equipos en Bogotá. Aún no conocemos el grupo; el sorteo define los primeros rivales.', ink: GOLD },
+      { tag: 'Marca', date: 'Sep 2026', title: 'Abrimos el TikTok oficial', body: '@furia_tamalera_fc arranca con contenido de cada matchday. El pecho de la camiseta sigue libre.', ink: RED }
+    ];
+
+    const tiers = [
+      { name: 'Tamal de Oro', slots: '1 cupo', ink: GOLD, perks: ['Frente de camiseta en los 16 uniformes', 'Logo destacado en la web y en cada alineación publicada', 'Mención en todos los videos de matchday', 'Presencia en la foto oficial del equipo'] },
+      { name: 'Tamal de Plata', slots: '2 cupos', ink: '#cfd3e5', perks: ['Espalda o manga de la camiseta', 'Logo en la web y en las historias de partido', 'Mención mensual en TikTok'] },
+      { name: 'Tamal de Bronce', slots: 'Cupos abiertos', ink: '#7ee0a8', perks: ['Logo en la web y en la pizarra táctica', 'Agradecimiento en el resumen de cada fecha'] }
+    ];
+
+    return {
+      railRef: this.railRef, railPrev: () => this.scrollRail(-1), railNext: () => this.scrollRail(1),
+      railHold: () => { this._paused = true; }, railRelease: () => { this._paused = false; },
+      mediaLoop: media.concat(media.map((m, i) => Object.assign({}, m, { n: m.n }))),
+      balls, embers, filters, countdown, countdownKicker, countdownTitle, countdownSub, visiblePlayers, teamStats, formationTabs, slots, pickList, panelTitle, lineupText, autoFill,
+      clearAll: () => this.setState({ assign: {}, activeSlot: null, selected: null }),
+      standings, fixtures, media, news, tiers,
+      viewTabs, groups, isList: view === 'lista', isCards: view === 'cartas',
+      modalOpen: modalId !== null, modal, closeModal: () => this.setState({ modalId: null })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

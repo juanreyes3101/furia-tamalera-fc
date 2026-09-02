@@ -1,0 +1,17 @@
+jugador,posiciones,pac_escala,pac_situacion,sho_escala,sho_situacion,pas_escala,pas_situacion,dri_escala,dri_situacion,def_escala,def_situacion,phy_escala,phy_situacion
+Jugador Demo 1,Delantero,7,C,7,B,8,A,8,B,8,C,4,B
+Jugador Demo 2,Mediocampo,5,A,9,C,8,D,7,C,8,C,8,A
+Jugador Demo 3,Defensa,8,A,4,A,5,B,7,B,8,C,8,A
+Jugador Demo 4,"Mediocampo, Defensa",6,B,9,A,9,A,8,D,4,C,6,C
+Jugador Demo 5,Defensa,8,B,4,B,4,B,6,B,4,C,4,A
+Jugador Demo 6,Portero,4,B,9,B,4,B,5,C,6,B,6,B
+Jugador Demo 7,"Delantero, Mediocampo",7,C,4,A,9,A,4,B,7,A,8,A
+Jugador Demo 8,Mediocampo,8,A,9,C,7,C,4,B,5,A,8,B
+Jugador Demo 9,Defensa,4,A,7,D,8,C,4,A,5,A,6,A
+Jugador Demo 10,Delantero,8,B,6,B,4,A,8,C,4,B,6,C
+Jugador Demo 11,Mediocampo,5,D,7,C,5,C,5,C,6,D,8,A
+Jugador Demo 12,"Defensa, Delantero",5,A,9,D,5,C,7,D,8,A,4,A
+Jugador Demo 13,Mediocampo,4,B,6,A,9,B,7,C,8,B,8,A
+Jugador Demo 14,Delantero,9,D,5,A,8,C,8,B,6,A,5,C
+Jugador Demo 15,Defensa,4,A,7,A,4,A,6,B,5,A,5,D
+Jugador Demo 16,Portero,6,C,9,B,5,B,4,B,6,C,4,A
