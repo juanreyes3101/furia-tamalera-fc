@@ -145,7 +145,27 @@ type RosterRow = {
   dorsal: string;
   edad: string;
   posicion_override: string;
+  pac_override: string;
+  sho_override: string;
+  pas_override: string;
+  dri_override: string;
+  def_override: string;
+  phy_override: string;
 };
+
+/** Ajustes manuales del mánager por stat (roster_publico_TEMPLATE.csv,
+ * columnas *_override) — si hay un número válido, reemplaza el valor
+ * calculado del form antes de sacar el OVR. */
+function applyStatOverrides(scores: Record<Stat, number>, r: RosterRow): Record<Stat, number> {
+  const out = { ...scores };
+  for (const stat of STATS) {
+    const raw = r[`${stat}_override` as keyof RosterRow]?.trim();
+    if (!raw) continue;
+    const n = parseInt(raw, 10);
+    if (Number.isFinite(n)) out[stat] = Math.min(99, Math.max(1, n));
+  }
+  return out;
+}
 
 const VALID_POSITIONS: Position[] = ["POR", "DEF", "MED", "DEL"];
 
@@ -270,6 +290,7 @@ function main() {
       const combined = 0.5 * scaleToScore(scaleVal) + 0.5 * situScore;
       scores[stat] = Math.min(99, Math.max(40, Math.round(combined)));
     }
+    const adjustedScores = applyStatOverrides(scores, r);
 
     const override = r.posicion_override?.trim().toUpperCase() as Position | undefined;
     let primary: Position;
@@ -277,9 +298,9 @@ function main() {
     if (override && VALID_POSITIONS.includes(override)) {
       primary = override;
       const weights = OVR_WEIGHTS_BY_POSITION[primary];
-      ovr = Math.round(STATS.reduce((acc, s) => acc + scores[s] * weights[s], 0));
+      ovr = Math.round(STATS.reduce((acc, s) => acc + adjustedScores[s] * weights[s], 0));
     } else {
-      ({ primary, ovr } = bestFitPrimary(scores, buckets));
+      ({ primary, ovr } = bestFitPrimary(adjustedScores, buckets));
     }
 
     const bonusRaw = answerOf(sub, QUESTION_ID.bonusNota);
@@ -295,7 +316,7 @@ function main() {
       pos: primary,
       positions: buckets,
       positionsDetail: detail,
-      pac: scores.pac, sho: scores.sho, pas: scores.pas, dri: scores.dri, def: scores.def, phy: scores.phy,
+      pac: adjustedScores.pac, sho: adjustedScores.sho, pas: adjustedScores.pas, dri: adjustedScores.dri, def: adjustedScores.def, phy: adjustedScores.phy,
       ovr,
       note: "", // se publica solo cuando el mánager aprueba note_raw
       note_raw: noteRaw,

@@ -81,7 +81,7 @@ export default function PlayerCard({
             </div>
           </div>
 
-          <div className="mt-[9px] text-center">
+          <div className="mt-[9px] min-w-0 text-center">
             <div className="truncate text-[15px] font-bold uppercase tracking-[.03em] text-ink">
               {player.name} {player.apellido}
             </div>
