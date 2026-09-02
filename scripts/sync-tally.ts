@@ -144,7 +144,24 @@ type RosterRow = {
   apodo: string;
   dorsal: string;
   edad: string;
+  posicion_override: string;
 };
+
+const VALID_POSITIONS: Position[] = ["POR", "DEF", "MED", "DEL"];
+
+/** OVR que tendría el jugador si su posición primaria fuera cada uno de los
+ * buckets que marcó en el form; se queda con la que le da mejor media — así
+ * la posición principal refleja dónde rinde mejor, no cuál casilla clicó
+ * primero. */
+function bestFitPrimary(scores: Record<Stat, number>, buckets: Position[]): { primary: Position; ovr: number } {
+  let best = { primary: buckets[0], ovr: -1 };
+  for (const bucket of buckets) {
+    const weights = OVR_WEIGHTS_BY_POSITION[bucket];
+    const ovr = Math.round(STATS.reduce((acc, s) => acc + scores[s] * weights[s], 0));
+    if (ovr > best.ovr) best = { primary: bucket, ovr };
+  }
+  return best;
+}
 
 function answerOf(sub: TallySubmission, questionId: string): unknown {
   return sub.responses.find((r) => r.questionId === questionId)?.answer;
@@ -238,7 +255,6 @@ function main() {
     const posLabels = Array.isArray(posAnswer) ? posAnswer.map(String) : [];
     const { buckets, detail } = parsePositions(posLabels);
     if (!buckets.length) throw new Error(`${r.jugador} no marcó ninguna posición en el Form.`);
-    const primary = buckets[0];
 
     const scores: Record<Stat, number> = { pac: 0, sho: 0, pas: 0, dri: 0, def: 0, phy: 0 };
     for (const stat of STATS) {
@@ -255,8 +271,16 @@ function main() {
       scores[stat] = Math.min(99, Math.max(40, Math.round(combined)));
     }
 
-    const weights = OVR_WEIGHTS_BY_POSITION[primary];
-    const ovr = Math.round(STATS.reduce((acc, s) => acc + scores[s] * weights[s], 0));
+    const override = r.posicion_override?.trim().toUpperCase() as Position | undefined;
+    let primary: Position;
+    let ovr: number;
+    if (override && VALID_POSITIONS.includes(override)) {
+      primary = override;
+      const weights = OVR_WEIGHTS_BY_POSITION[primary];
+      ovr = Math.round(STATS.reduce((acc, s) => acc + scores[s] * weights[s], 0));
+    } else {
+      ({ primary, ovr } = bestFitPrimary(scores, buckets));
+    }
 
     const bonusRaw = answerOf(sub, QUESTION_ID.bonusNota);
     const noteRaw = typeof bonusRaw === "string" && bonusRaw.trim() ? bonusRaw.trim() : null;

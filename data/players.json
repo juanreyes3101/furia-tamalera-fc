@@ -41,26 +41,25 @@
     "num": 1,
     "pos": "DEF",
     "positions": [
-      "DEF",
-      "MED"
+      "MED",
+      "DEF"
     ],
     "positionsDetail": [
-      "Lateral Izquierdo",
       "Volante Izquierdo",
-      "Mediocampista Central"
+      "Lateral Izquierdo"
     ],
     "pac": 82,
-    "sho": 82,
-    "pas": 89,
-    "dri": 79,
-    "def": 89,
-    "phy": 97,
-    "ovr": 89,
+    "sho": 79,
+    "pas": 82,
+    "dri": 82,
+    "def": 82,
+    "phy": 90,
+    "ovr": 83,
     "note": "",
-    "note_raw": "21",
+    "note_raw": "Veni,Vidi,Venci",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-01T18:07:14.000Z"
+    "respondedAt": "2026-09-02T02:04:17.000Z"
   },
   {
     "id": "simon-felipe-buitrago-pena",
@@ -72,24 +71,26 @@
     "pos": "DEF",
     "positions": [
       "DEF",
-      "MED"
+      "MED",
+      "DEL"
     ],
     "positionsDetail": [
       "Defensa Central",
-      "Mediocampista Central"
+      "Mediocampista Central",
+      "Delantero (9)"
     ],
-    "pac": 79,
+    "pac": 82,
     "sho": 73,
     "pas": 82,
-    "dri": 75,
+    "dri": 79,
     "def": 90,
-    "phy": 79,
-    "ovr": 83,
+    "phy": 82,
+    "ovr": 84,
     "note": "",
-    "note_raw": "Morata entre hice gol pero el resto del partido no me salieron más goles ajja",
+    "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-01T18:00:12.000Z"
+    "respondedAt": "2026-09-02T02:14:28.000Z"
   },
   {
     "id": "juan-camilo-montenegro-rodriguez",
@@ -190,21 +191,27 @@
     "edad": null,
     "nickname": "Emanuel",
     "num": 7,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
+    "pos": "POR",
+    "positions": [
+      "POR",
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Portero",
+      "Defensa Central"
+    ],
+    "pac": 63,
+    "sho": 66,
+    "pas": 87,
+    "dri": 57,
+    "def": 87,
+    "phy": 72,
+    "ovr": 78,
     "note": "",
-    "note_raw": null,
+    "note_raw": "Kiriku",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T02:04:16.000Z"
   },
   {
     "id": "david-alejandro-triana-morales",
@@ -236,21 +243,29 @@
     "edad": null,
     "nickname": "Luis Andres",
     "num": 9,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
+    "pos": "DEF",
+    "positions": [
+      "DEL",
+      "MED",
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Delantero (9)",
+      "Volante Izquierdo",
+      "Defensa Central"
+    ],
+    "pac": 63,
+    "sho": 82,
+    "pas": 90,
+    "dri": 82,
+    "def": 90,
+    "phy": 82,
+    "ovr": 85,
     "note": "",
-    "note_raw": null,
+    "note_raw": "Andy, todos me llaman así",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T02:07:53.000Z"
   },
   {
     "id": "diego-andres-prieto-bohorquez",
@@ -259,21 +274,30 @@
     "edad": null,
     "nickname": "Diego Andres",
     "num": 10,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
+    "pos": "DEF",
+    "positions": [
+      "MED",
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Volante Izquierdo",
+      "Volante Derecho",
+      "Lateral Derecho",
+      "Mediocampista Central",
+      "Lateral Izquierdo"
+    ],
+    "pac": 90,
+    "sho": 63,
+    "pas": 79,
+    "dri": 79,
+    "def": 87,
+    "phy": 75,
+    "ovr": 82,
     "note": "",
     "note_raw": null,
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T02:25:46.000Z"
   },
   {
     "id": "juan-camilo-escobar-salamanca",
@@ -329,20 +353,27 @@
     "nickname": "Jesús Santiago",
     "num": 16,
     "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
+    "positions": [
+      "DEF",
+      "MED"
+    ],
+    "positionsDetail": [
+      "Lateral Derecho",
+      "Mediocampista Central",
+      "Volante Derecho"
+    ],
+    "pac": 66,
+    "sho": 72,
+    "pas": 85,
+    "dri": 82,
+    "def": 75,
+    "phy": 75,
+    "ovr": 78,
     "note": "",
     "note_raw": null,
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T02:12:42.000Z"
   },
   {
     "id": "nicolas-baron-cruz",
@@ -374,20 +405,28 @@
     "edad": null,
     "nickname": "Johan Sebastian",
     "num": 20,
-    "pos": "MED",
-    "positions": [],
-    "positionsDetail": [],
-    "pac": null,
-    "sho": null,
-    "pas": null,
-    "dri": null,
-    "def": null,
-    "phy": null,
-    "ovr": null,
+    "pos": "DEL",
+    "positions": [
+      "POR",
+      "DEL",
+      "DEF"
+    ],
+    "positionsDetail": [
+      "Portero",
+      "Delantero (9)",
+      "Defensa Central"
+    ],
+    "pac": 79,
+    "sho": 66,
+    "pas": 87,
+    "dri": 69,
+    "def": 85,
+    "phy": 65,
+    "ovr": 72,
     "note": "",
-    "note_raw": null,
+    "note_raw": "La 🐝 un pique y me muero",
     "photo": null,
-    "status": "pending",
-    "respondedAt": null
+    "status": "answered",
+    "respondedAt": "2026-09-02T02:10:27.000Z"
   }
 ]

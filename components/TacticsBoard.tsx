@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { players } from "@/lib/players";
 import { tierOf } from "@/lib/tier";
-import { AUTO_FILL_ORDER, FORMATIONS, FORMATION_KEYS } from "@/lib/formations";
+import { FORMATIONS, FORMATION_KEYS, computeAutoXI } from "@/lib/formations";
 
 const GOLD = "#e3b23c";
 const GREEN = "#2fa26a";
 
 export default function TacticsBoard() {
   const [formation, setFormation] = useState<string>(FORMATION_KEYS[0]);
-  const [assign, setAssign] = useState<Record<number, string>>({});
+  // Arranca con el once titular ya armado (mejor OVR disponible por
+  // posición) en vez de la cancha vacía — mismo cálculo que el botón AUTO XI.
+  const [assign, setAssign] = useState<Record<number, string>>(() =>
+    computeAutoXI(FORMATIONS[FORMATION_KEYS[0]], players)
+  );
   const [activeSlot, setActiveSlot] = useState<number | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [dragging, setDragging] = useState<string | null>(null);
@@ -52,22 +56,7 @@ export default function TacticsBoard() {
   }
 
   function autoFill() {
-    const taken = new Set<string>();
-    const next: Record<number, string> = {};
-    def.forEach((slot, idx) => {
-      const prefs = AUTO_FILL_ORDER[slot[0]];
-      for (const posPref of prefs) {
-        const pool = players
-          .filter((p) => p.pos === posPref && !taken.has(p.id))
-          .sort((a, b) => (b.ovr ?? 0) - (a.ovr ?? 0));
-        if (pool.length) {
-          taken.add(pool[0].id);
-          next[idx] = pool[0].id;
-          break;
-        }
-      }
-    });
-    setAssign(next);
+    setAssign(computeAutoXI(def, players));
     setActiveSlot(null);
     setSelected(null);
   }

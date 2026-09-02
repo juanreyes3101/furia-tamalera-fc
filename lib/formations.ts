@@ -1,4 +1,4 @@
-import type { Position } from "./types";
+import type { Player, Position } from "./types";
 
 export type FormationSlot = [Position, number, number]; // [posición, x%, y%]
 
@@ -20,3 +20,28 @@ export const AUTO_FILL_ORDER: Record<Position, Position[]> = {
   MED: ["MED", "DEF", "DEL"],
   DEL: ["DEL", "MED"],
 };
+
+/**
+ * Arma el once titular: para cada puesto de la formación busca el mejor OVR
+ * disponible en esa posición, y si no hay nadie libre recurre a una posición
+ * compatible (ver AUTO_FILL_ORDER). Se usa tanto para el botón "AUTO XI" como
+ * para el estado inicial de la pizarra táctica.
+ */
+export function computeAutoXI(slots: FormationSlot[], players: Player[]): Record<number, string> {
+  const taken = new Set<string>();
+  const assign: Record<number, string> = {};
+  slots.forEach((slot, idx) => {
+    const prefs = AUTO_FILL_ORDER[slot[0]];
+    for (const posPref of prefs) {
+      const pool = players
+        .filter((p) => p.pos === posPref && !taken.has(p.id))
+        .sort((a, b) => (b.ovr ?? 0) - (a.ovr ?? 0));
+      if (pool.length) {
+        taken.add(pool[0].id);
+        assign[idx] = pool[0].id;
+        break;
+      }
+    }
+  });
+  return assign;
+}
