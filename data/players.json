@@ -30,7 +30,19 @@
     "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-08-31T20:05:35.000Z"
+    "respondedAt": "2026-08-31T20:05:35.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "nestor-montenegro",
@@ -59,7 +71,19 @@
     "note_raw": "Veni,Vidi,Venci",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:04:17.000Z"
+    "respondedAt": "2026-09-02T02:04:17.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "simon-buitrago",
@@ -92,7 +116,19 @@
     "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:14:28.000Z"
+    "respondedAt": "2026-09-02T02:14:28.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "juan-montenegro",
@@ -119,7 +155,19 @@
     "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T13:37:19.000Z"
+    "respondedAt": "2026-09-02T13:37:19.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "fabian-parra",
@@ -148,7 +196,19 @@
     "note_raw": "Enano",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:41:37.000Z"
+    "respondedAt": "2026-09-02T02:41:37.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "juan-guarin",
@@ -178,7 +238,19 @@
     "note_raw": "Osito",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T03:47:12.000Z"
+    "respondedAt": "2026-09-02T03:47:12.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "deiby-garcia",
@@ -217,7 +289,19 @@
     "note_raw": "El sombra \nPorq si",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T04:40:46.000Z"
+    "respondedAt": "2026-09-02T04:40:46.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "emanuel-reyes",
@@ -248,7 +332,19 @@
     "note_raw": "Kiriku",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:04:16.000Z"
+    "respondedAt": "2026-09-02T02:04:16.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "david-triana",
@@ -279,7 +375,19 @@
     "note_raw": "Dei v",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:52:23.000Z"
+    "respondedAt": "2026-09-02T02:52:23.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "andres-melendez",
@@ -312,7 +420,19 @@
     "note_raw": "Andy, todos me llaman así",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:07:53.000Z"
+    "respondedAt": "2026-09-02T02:07:53.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "diego-prieto",
@@ -344,7 +464,19 @@
     "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:25:46.000Z"
+    "respondedAt": "2026-09-02T02:25:46.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "juan-escobar",
@@ -379,7 +511,19 @@
     "note_raw": "Milo",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T11:00:21.000Z"
+    "respondedAt": "2026-09-02T11:00:21.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "angel-montien",
@@ -412,7 +556,19 @@
     "note_raw": "Monti, enano, no hace falta explicar mano",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:47:08.000Z"
+    "respondedAt": "2026-09-02T02:47:08.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "jesus-garzon",
@@ -444,7 +600,19 @@
     "note_raw": null,
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:12:42.000Z"
+    "respondedAt": "2026-09-02T02:12:42.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "nicolas-baron",
@@ -474,7 +642,19 @@
     "note_raw": "Mapache",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T03:57:34.000Z"
+    "respondedAt": "2026-09-02T03:57:34.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   },
   {
     "id": "johan-diaz",
@@ -507,6 +687,18 @@
     "note_raw": "La 🐝 un pique y me muero",
     "photo": null,
     "status": "answered",
-    "respondedAt": "2026-09-02T02:10:27.000Z"
+    "respondedAt": "2026-09-02T02:10:27.000Z",
+    "historia": null,
+    "social": {
+      "instagram": null,
+      "tiktok": null
+    },
+    "torneo": {
+      "partidos": null,
+      "goles": null,
+      "asistencias": null,
+      "puntuacionMedia": null
+    },
+    "clubes": []
   }
 ]

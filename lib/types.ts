@@ -24,6 +24,10 @@ export type Player = {
   photo: string | null;
   status: PlayerStatus;
   respondedAt: string | null;
+  historia: string | null;
+  social: { instagram: string | null; tiktok: string | null };
+  torneo: { partidos: number | null; goles: number | null; asistencias: number | null; puntuacionMedia: number | null };
+  clubes: { periodo: string; nombre: string }[];
 };
 
 export type Tier = {

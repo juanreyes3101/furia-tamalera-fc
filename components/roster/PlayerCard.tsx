@@ -24,10 +24,12 @@ export default function PlayerCard({
   player,
   flipped,
   onClick,
+  onViewFull,
 }: {
   player: Player;
   flipped: boolean;
   onClick?: () => void;
+  onViewFull?: () => void;
 }) {
   const tier = tierOf(player.ovr);
   const [note] = useState(() => pickRandomNote(player.note));
@@ -152,6 +154,18 @@ export default function PlayerCard({
 
           <div className="flex-1" />
           {note && <div suppressHydrationWarning className="text-[12px] text-ink-3 text-pretty">{note}</div>}
+          {onViewFull && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onViewFull();
+              }}
+              className="cursor-pointer text-left text-[12px] font-semibold text-green-light transition-colors hover:text-[#c9f5dc]"
+            >
+              Ver más detalles →
+            </button>
+          )}
         </div>
       )}
     </div>

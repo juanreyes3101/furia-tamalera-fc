@@ -5,7 +5,7 @@ import { players, POSITION_LABEL } from "@/lib/players";
 import { tierOf } from "@/lib/tier";
 import type { Player, Position } from "@/lib/types";
 import PlayerCard from "./PlayerCard";
-import PlayerModal from "./PlayerModal";
+import PlayerDetailOverlay from "./PlayerDetailOverlay";
 
 const FILTERS: ("TODOS" | Position)[] = ["TODOS", "POR", "DEF", "MED", "DEL"];
 const GROUPS: [Position, string][] = [
@@ -36,10 +36,10 @@ export default function RosterSection() {
   const [filter, setFilter] = useState<"TODOS" | Position>("TODOS");
   const [view, setView] = useState<"lista" | "cartas">("lista");
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
-  const [modalId, setModalId] = useState<string | null>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
 
   const visible = players.filter((p) => filter === "TODOS" || p.pos === filter);
-  const modalPlayer = modalId ? players.find((p) => p.id === modalId) ?? null : null;
+  const detailPlayer = detailId ? players.find((p) => p.id === detailId) ?? null : null;
 
   return (
     <section id="plantilla" className="mx-auto max-w-[1240px] px-[22.4px] pb-[78px] pt-[22.4px]">
@@ -120,7 +120,7 @@ export default function RosterSection() {
                       <button
                         key={p.id}
                         type="button"
-                        onClick={() => setModalId(p.id)}
+                        onClick={() => setDetailId(p.id)}
                         className="group flex cursor-pointer items-center gap-[11.2px] rounded-lg border border-[rgba(233,233,237,.10)] bg-[rgba(35,37,50,.6)] px-[11.2px] py-[9px] text-left text-ink transition-[border-color,transform] hover:translate-x-1"
                         onMouseEnter={(e) => (e.currentTarget.style.borderColor = tier.ink)}
                         onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(233,233,237,.10)")}
@@ -158,13 +158,14 @@ export default function RosterSection() {
                 player={p}
                 flipped={!!flipped[p.id]}
                 onClick={() => setFlipped((s) => ({ ...s, [p.id]: !s[p.id] }))}
+                onViewFull={() => setDetailId(p.id)}
               />
             </div>
           ))}
         </div>
       )}
 
-      {modalPlayer && <PlayerModal player={modalPlayer} onClose={() => setModalId(null)} />}
+      {detailPlayer && <PlayerDetailOverlay player={detailPlayer} onClose={() => setDetailId(null)} />}
     </section>
   );
 }

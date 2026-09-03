@@ -152,7 +152,39 @@ type RosterRow = {
   def_override: string;
   phy_override: string;
   nota_override: string;
+  foto: string;
+  instagram: string;
+  tiktok: string;
+  historia: string;
+  partidos: string;
+  goles: string;
+  asistencias: string;
+  puntuacion_media: string;
+  clubes_previos: string;
 };
+
+/** "2019-2021,Club Barrio;2022-2024,Recreativo La 14" -> [{periodo,nombre}, ...] */
+function parseClubes(raw: string): { periodo: string; nombre: string }[] {
+  return (raw ?? "")
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((entry) => {
+      const [periodo, ...rest] = entry.split(",");
+      return { periodo: (periodo ?? "").trim(), nombre: rest.join(",").trim() };
+    })
+    .filter((c) => c.periodo && c.nombre);
+}
+
+function parseIntOrNull(raw: string): number | null {
+  const n = parseInt((raw ?? "").trim(), 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+function parseFloatOrNull(raw: string): number | null {
+  const n = parseFloat((raw ?? "").trim());
+  return Number.isFinite(n) ? n : null;
+}
 
 /** Ajustes manuales del mánager por stat (roster_publico_TEMPLATE.csv,
  * columnas *_override) — si hay un número válido, reemplaza el valor
@@ -251,6 +283,21 @@ function main() {
     const edadParsed = parseInt(r.edad, 10);
     const edad = Number.isFinite(edadParsed) ? edadParsed : null;
 
+    // Ficha de jugador: independiente de si respondió el form o no.
+    const photo = r.foto?.trim() ? `/players/${r.foto.trim()}` : null;
+    const historia = r.historia?.trim() || null;
+    const social = {
+      instagram: r.instagram?.trim() || null,
+      tiktok: r.tiktok?.trim() || null,
+    };
+    const torneo = {
+      partidos: parseIntOrNull(r.partidos),
+      goles: parseIntOrNull(r.goles),
+      asistencias: parseIntOrNull(r.asistencias),
+      puntuacionMedia: parseFloatOrNull(r.puntuacion_media),
+    };
+    const clubes = parseClubes(r.clubes_previos);
+
     if (!sub) {
       return {
         id,
@@ -266,9 +313,13 @@ function main() {
         ovr: null,
         note: [],
         note_raw: null,
-        photo: null,
+        photo,
         status: "pending",
         respondedAt: null,
+        historia,
+        social,
+        torneo,
+        clubes,
       };
     }
 
@@ -326,9 +377,13 @@ function main() {
         .map((s) => s.trim())
         .filter(Boolean),
       note_raw: noteRaw,
-      photo: null,
+      photo,
       status: "answered",
       respondedAt: sub.submittedAt,
+      historia,
+      social,
+      torneo,
+      clubes,
     };
   });
 
